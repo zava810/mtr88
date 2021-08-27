@@ -128,10 +128,12 @@ public class LatinKeyboardView extends View  {
         canvas.drawText("alt", seg_coords[11][0], seg_coords[11][1]+font_size*2, paint);
         paint.setColor(sft_text_klr);
         canvas.drawText("&sft", seg_coords[0xA][0], seg_coords[0xA][1]+font_size*2, paint);
+//        paint.setColor(Color.rgb(0x44,0x44,0xFF));
+        canvas.drawText("HN[", seg_coords[10][0], seg_coords[10][1]+font_size*3.5f, paint);
         paint.setTextSize(36); //paint.setColor(Color.rgb(0xAA,0x00,0x00));
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 //        paint.setColor(getResources().getColor(R.color.klr_star_mul));
-        paint.setColor(Color.rgb(0x22,0x22,0x99));
+        paint.setColor(Color.rgb(0x00,0x00,0x00));
         canvas.drawText("*;-[", seg_coords[7][0], seg_coords[7][1]+font_size*3, paint);
         paint.setTextSize(font_size);paint.setTypeface(typeface);
 
@@ -185,8 +187,7 @@ public class LatinKeyboardView extends View  {
         paint.setColor(Color.rgb(0x00,0x00,0x00));
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
         canvas.drawText("+= |({", seg_coords[0xF][0], seg_coords[0xF][1]+font_size*2.5f, paint);
-        paint.setColor(Color.rgb(0x44,0x44,0xFF));
-        canvas.drawText("HN[", seg_coords[10][0], seg_coords[10][1]+font_size*3.5f, paint);
+
 
         if(is_nmlk_on) paint.setColor(getResources().getColor(R.color.klr_123_on));
         else paint.setColor(getResources().getColor(R.color.klr_123_oph));

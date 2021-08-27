@@ -209,10 +209,11 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
                 ic.sendKeyEvent(new KeyEvent(0, 0, KeyEvent.ACTION_UP, kk,0, meta));
             } else {
                 ic.commitText(ksek,1);
-            }
-            if(ksek == "[]" || ksek == "()" || ksek == "{}" || ksek == "\"\"") {
-                ic.sendKeyEvent(new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DPAD_LEFT,0));
-                ic.sendKeyEvent(new KeyEvent(0, 0, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DPAD_LEFT,0));
+                final char temp = ksek.charAt(0);
+                if(temp == '[' || temp == '(' || temp == '{' || temp == '"') {
+                    ic.sendKeyEvent(new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DPAD_LEFT,0));
+                    ic.sendKeyEvent(new KeyEvent(0, 0, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DPAD_LEFT,0));
+                }
             }
             prev_kk = kk ; prev_ksek = ksek ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null;
             isl88_up_pending = false ;
