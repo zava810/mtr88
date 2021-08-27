@@ -4,3 +4,122 @@ mtr88 + kde connect = touchpad + kverty keyboard  in ring finger or smartwatch
 #smartwearables #Androidsmartwatch
 #multitouch #smartwatches #smartwatchandroid #androiddev #wearabletechnology #wearabletech #wearabledevices #wearables #wearablecomputing #wearable #smartwatch #Androidwatch #android #apple #phonemafia #linux KDE #laptop 
 https://youtu.be/olSOoV4rmVY
+==========
+    public void sft_06(){
+        isl88_up_pending = false ; meta = 0 ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
+        switch (l88bytes) {
+/////////////////////
+            //k2p = 0 1
+// case 0x047F: break;
+            case 0x047E: send_y_commit_n = false; ksek = "&"; break;
+            case 0x047D: send_y_commit_n = false; ksek = "E"; break;
+            case 0x047B: send_y_commit_n = false; ksek = "C"; break;
+            case 0x0477: send_y_commit_n = false; ksek = "U"; break;
+            case 0x046F: send_y_commit_n = false; ksek = "@"; break;
+            case 0x045F: send_y_commit_n = false; ksek = "O"; break;
+            case 0x043F: send_y_commit_n = false; ksek = "I"; break;
+
+            //k2p = 2
+            case 0x047C: send_y_commit_n = false; ksek = "P"; break;
+            case 0x047A: send_y_commit_n = false; ksek = "D"; break;
+            case 0x0479: send_y_commit_n = false; ksek = "()"; break;
+            case 0x0476: send_y_commit_n = false; ksek = "H"; break;
+            case 0x0475: send_y_commit_n = false; ksek = "Y"; break;
+            case 0x0473: send_y_commit_n = false; ksek = "B"; break;
+            case 0x046E: send_y_commit_n = false; ksek = ":"; break;
+            case 0x046D: send_y_commit_n = false; ksek = "Z"; break;
+            case 0x046B: kk = KeyEvent.KEYCODE_PERIOD; break;
+            case 0x0467: send_y_commit_n = false; ksek = "D"; break;
+            case 0x045E: send_y_commit_n = false; ksek = "M"; break;
+            case 0x045D: send_y_commit_n = false; ksek = "L"; break;
+            case 0x045B: send_y_commit_n = false; ksek = "G"; break;
+            case 0x0457: send_y_commit_n = false; ksek = "V"; break;
+            case 0x044F: send_y_commit_n = false; ksek = "J"; break;
+            case 0x043E: send_y_commit_n = false; ksek = "Q"; break;
+            case 0x043D: send_y_commit_n = false; ksek = "_"; break;
+            case 0x043B: send_y_commit_n = false; ksek = "S"; break;
+            case 0x0437: send_y_commit_n = false; ksek = "Y"; break;
+            case 0x042F: send_y_commit_n = false; ksek = "|"; break;
+            case 0x041F: send_y_commit_n = false; ksek = "R"; break;
+
+
+            //k2p = 3
+            case 0x0478: send_y_commit_n = false; ksek = "F"; break;
+            case 0x0474: send_y_commit_n = false; ksek = "{}"; break;
+            case 0x0472: send_y_commit_n = false; ksek = "()"; break;
+            case 0x0471: send_y_commit_n = false; ksek = "T"; break;
+            case 0x046C: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x046A: send_y_commit_n = false; ksek = "W"; break;
+            case 0x0469: send_y_commit_n = false; ksek = "<"; break;
+            case 0x0466: isl88_up_pending = true ; break ;
+            case 0x0465: isl88_up_pending = true ; break ;
+            case 0x0463: send_y_commit_n = false; ksek = "~"; break;
+            case 0x045C: send_y_commit_n = false; ksek = "()"; break;
+            case 0x045A: send_y_commit_n = false; ksek = "%"; break;
+            case 0x0459: send_y_commit_n = false; ksek = "()"; break;
+            case 0x0456: send_y_commit_n = false; ksek = "!"; break;
+            case 0x0455: send_y_commit_n = false; ksek = "%"; break;
+            case 0x0453: send_y_commit_n = false; ksek = "()"; break;
+            case 0x044E: send_y_commit_n = false; ksek = "!"; break;
+            case 0x044D: send_y_commit_n = false; ksek = "!"; break;
+            case 0x044B: send_y_commit_n = false; ksek = "W"; break;
+            case 0x0447: send_y_commit_n = false; ksek = "{}"; break;
+            case 0x043C: send_y_commit_n = false; ksek = ":"; break;
+            case 0x043A: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x0439: send_y_commit_n = false; ksek = "C" ; break;
+            case 0x0436: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x0435: kk = KeyEvent.KEYCODE_W; break;
+            case 0x0433: send_y_commit_n = false; ksek = "[]" ; break;
+            case 0x042E: send_y_commit_n = false; ksek = "{}"; break;
+            case 0x042D: send_y_commit_n = false; ksek = "G" ; break;
+            case 0x042B: send_y_commit_n = false; ksek = "G" ; break;
+            case 0x0427: send_y_commit_n = false; ksek = "[]" ; break;
+            case 0x041E: send_y_commit_n = false; ksek = "()" ; break;
+            case 0x041D: send_y_commit_n = false; ksek = "N"; break;
+            case 0x041B: send_y_commit_n = false; ksek = "%"; break;
+            case 0x0417: kk = KeyEvent.KEYCODE_COMMA; break;
+            case 0x040F: send_y_commit_n = false; ksek = "K"; break;
+
+
+            //k2p = 4
+            case 0x0470: send_y_commit_n = false; ksek = "}"; break;
+            case 0x0468: isl88_up_pending = true ; break ;
+            case 0x0464: isl88_up_pending = true ; break ;
+            case 0x0462: isl88_up_pending = true ; break ;
+            case 0x0461: isl88_up_pending = true ; break ;
+            case 0x0458: isl88_up_pending = true ; break ;
+            case 0x0454: send_y_commit_n = false; ksek = "L"; break;
+            case 0x0452: send_y_commit_n = false; ksek = "?"; break;
+            case 0x0451: isl88_up_pending = true ; break ;
+            case 0x044C: isl88_up_pending = true ; break ;
+            case 0x044A: isl88_up_pending = true ; break ;
+            case 0x0449: isl88_up_pending = true ; break ;
+            case 0x0446: isl88_up_pending = true ; break ;
+            case 0x0445: isl88_up_pending = true ; break ;
+            case 0x0443: isl88_up_pending = true ; break ;
+            case 0x0438: isl88_up_pending = true ; break ;
+            case 0x0434: isl88_up_pending = true ; break ;
+            case 0x0432: isl88_up_pending = true ; break ;
+            case 0x0431: isl88_up_pending = true ; break ;
+            case 0x042C: isl88_up_pending = true ; break ;
+            case 0x042A: isl88_up_pending = true ; break ;
+            case 0x0429: isl88_up_pending = true ; break ;
+            case 0x0426: send_y_commit_n = false; ksek = "{"; break;
+            case 0x0425: isl88_up_pending = true ; break ;
+            case 0x0423: isl88_up_pending = true ; break ;
+            case 0x041C: isl88_up_pending = true ; break ;
+            case 0x041A: isl88_up_pending = true ; break ;
+            case 0x0419: isl88_up_pending = true ; break ;
+            case 0x0416: kk = KeyEvent.KEYCODE_RIGHT_BRACKET; break;
+            case 0x0415: isl88_up_pending = true ; break ;
+            case 0x0413: isl88_up_pending = true ; break ;
+            case 0x040E: isl88_up_pending = true ; break ;
+            case 0x040D: isl88_up_pending = true ; break ;
+            case 0x040B: isl88_up_pending = true ; break ;
+            case 0x0407: send_y_commit_n = false; ksek = "?"; break;
+            // default
+            default: isl88_up_pending = true ; break ;
+        }
+        if(!isl88_up_pending) send_kk();
+    }
+

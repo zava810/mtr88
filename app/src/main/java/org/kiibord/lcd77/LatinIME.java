@@ -55,9 +55,6 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
     private static CharSequence ksek = null ; private static CharSequence prev_ksek = null ;
     private static int meta; private static int prev_meta; private static  boolean prev_is_send_or_commit = true ;
     private static boolean isl88_up_pending = true; private static boolean send_y_commit_n = true ;
-
-
-
     @Override public void onCreate() { super.onCreate();sInstance = this;
         mResources = getResources();final Configuration conf = mResources.getConfiguration(); mOrientation = conf.orientation;
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -102,7 +99,6 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             notificationManager.createNotificationChannel(channel);
         }
     }
-
     private void setNotification(boolean visible) {
         String ns = Context.NOTIFICATION_SERVICE; NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
 
@@ -144,7 +140,6 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             mNotificationReceiver = null;
         }
     }
-
     private boolean isPortrait() { return (mOrientation == Configuration.ORIENTATION_PORTRAIT); }
     @Override public View onCreateInputView() {
 //        setCandidatesViewShown(false);  // Workaround for "already has a parent" when reconfiguring
@@ -184,7 +179,6 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             mKeyboardSwitcher.setKeyboardMode(1, 0);
         }
     }
-
     @Override public AbstractInputMethodImpl onCreateInputMethodInterface() { return new MyInputMethodImpl(); }
     IBinder mToken;
     public class MyInputMethodImpl extends InputMethodImpl {
@@ -238,13 +232,11 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
 
         if (isl88_up_pending) send_06();
 //        if (isl88_up_pending) dot_06();
-        if (isl88_up_pending) sft_06();
+//        if (isl88_up_pending) sft_06();
         if (isl88_up_pending) send_8E();
         if (isl88_up_pending) dot_8E();
         if (isl88_up_pending) sft_dot_06();
         if (isl88_up_pending) send_special();
-
-
         if (isl88_up_pending && (l88bytes & 0x04FF) == 0x047F) send_sft8F();
 
         if (isl88_up_pending && (l88bytes & 0x1C00) == 0x1C00) send_knt_alt_sft();
@@ -277,19 +269,8 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
     public void send_num(){
         isl88_up_pending = false ; meta = 0 ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
         final int num88bytes ;
-        if (mKeyboardSwitcher.is_nm_lok()) {num88bytes =  l88bytes ^ 0x8000 ; } else { num88bytes =  l88bytes ; }
+        if (mKeyboardSwitcher.is_nm_lok() && ((l88bytes & 0x0480) == 0)) {num88bytes =  l88bytes ^ 0x8000 ; } else { num88bytes =  l88bytes ; }
         switch (num88bytes) {
-            // yllo key
-
-            // left k7 k2p=1
-//            case 0x007E:  send_y_commit_n = false;ksek = "A"; break; case 0x807E:  kk = KeyEvent.KEYCODE_0; break;
-//            case 0x007D:  kk = KeyEvent.KEYCODE_E; break; case 0x807D:  kk = KeyEvent.KEYCODE_1; break;
-//            case 0x007B:  kk = KeyEvent.KEYCODE_C; break; case 0x807B:  kk = KeyEvent.KEYCODE_2; break;
-//            case 0x0077:  kk = KeyEvent.KEYCODE_U; break; case 0x8077:  kk = KeyEvent.KEYCODE_3; break;
-//            case 0x006F:  kk = KeyEvent.KEYCODE_A; break; case 0x806F:  kk = KeyEvent.KEYCODE_4; break;
-//            case 0x005F:  kk = KeyEvent.KEYCODE_O; break; case 0x805F:  kk = KeyEvent.KEYCODE_5; break;
-//            case 0x003F:  kk = KeyEvent.KEYCODE_I; break; case 0x803F:  kk = KeyEvent.KEYCODE_6; break;
-            // right k7 k2p=1
             case 0x017F:  kk = KeyEvent.KEYCODE_ENTER; break; case 0x817F:  kk = KeyEvent.KEYCODE_8; break;
             case 0x027F:  kk = KeyEvent.KEYCODE_TAB; break; case 0x827F:  kk = KeyEvent.KEYCODE_9; break;
             case 0x047F: send_y_commit_n = false; ksek = "_"; break; case 0x847F: send_y_commit_n = false; ksek = "L"; break;
@@ -307,7 +288,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
         final int num88bytes ;
         if (mKeyboardSwitcher.is_nm_lok() && ((l88bytes & 0x0480) == 0)) {num88bytes =  l88bytes ^ 0x8000 ; } else { num88bytes =  l88bytes ; }
         switch (num88bytes) {
-            // send_06 : k2p = 0 keys from 0-6 + sft/dot/num
+            // send_06 : yllo key k2p = 0 keys from 0-6 + sft/dot/num
             case 0x00FF:  kk = KeyEvent.KEYCODE_SPACE; break;
             case 0x80FF:  kk = KeyEvent.KEYCODE_7; break; case 0x04FF:  send_y_commit_n = false; ksek = "[]"; break;
 
@@ -316,8 +297,8 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0x007E:  send_y_commit_n = false;ksek = "A"; break; case 0x00FE: kk = KeyEvent.KEYCODE_PERIOD; break;
             case 0x807E:  kk = KeyEvent.KEYCODE_0; break; case 0x047E:  send_y_commit_n = false; ksek = "&"; break;
 
-            case 0x00FD: kk = KeyEvent.KEYCODE_ESCAPE; break;
-            case 0x007D:  kk = KeyEvent.KEYCODE_E; break; case 0x807D:  kk = KeyEvent.KEYCODE_1; break;
+            case 0x007D:  kk = KeyEvent.KEYCODE_E; break; case 0x00FD: kk = KeyEvent.KEYCODE_ESCAPE; break;
+            case 0x807D:  kk = KeyEvent.KEYCODE_1; break; case 0x047D: send_y_commit_n = false; ksek = "E"; break;
 
             case 0x00FB: send_y_commit_n = false; ksek = "~"; break;
             case 0x007B:  kk = KeyEvent.KEYCODE_C; break; case 0x807B:  kk = KeyEvent.KEYCODE_2; break;
@@ -614,107 +595,8 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
 
             case 0x0007: kk = KeyEvent.KEYCODE_F; break;
             // case 0x0087: kk = KeyEvent.KEYCODE_F; break;
-
-            /// default
-            default: isl88_up_pending = true; break;
-        }
-        if(!isl88_up_pending) send_kk();
-
-    }
-
-    public void send_8E(){
-        isl88_up_pending = false ; meta = 0 ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
-        switch (l88bytes) {
-            case 0x04FF:  send_y_commit_n = false; ksek = "[]"; break;
-            case 0x287F: kk = KeyEvent.KEYCODE_EQUALS; break;
-            case 0x407F: send_y_commit_n = false; if (mKeyboardSwitcher.is_nm_lok()) {  ksek = "X" ; } else { ksek = "." ; } break;
-            case 0x077F:case 0x0B7F: kk = KeyEvent.KEYCODE_SEMICOLON; break;
-            case 0x097F: send_y_commit_n = false; ksek = ":" ; break;
-            case 0x297F: send_y_commit_n = false; ksek = "|" ; break;
-            case 0x697F: send_y_commit_n = false; ksek = "!" ; break;
-            case 0x217F: send_y_commit_n = false; ksek = "*" ; break;
-            case 0x187F: kk = KeyEvent.KEYCODE_APOSTROPHE; break;
-            case 0x0C7F: kk = KeyEvent.KEYCODE_GRAVE; break;
-            case 0x147F: send_y_commit_n = false; ksek = "\"" ; break;
-            case 0x037F: kk = KeyEvent.KEYCODE_COMMA; break;
-            case 0x647F: kk = KeyEvent.KEYCODE_SLASH; break;
-            case 0x327F: kk = KeyEvent.KEYCODE_BACKSLASH; break;
-            case 0x607F: kk = KeyEvent.KEYCODE_R; break;
-            case 0xE47F: send_y_commit_n = false; ksek = "%" ; break;
-            case 0x267F: kk = KeyEvent.KEYCODE_LEFT_BRACKET; break;
-            case 0x617F: send_y_commit_n = false; ksek = "<" ; break;
-            case 0x237F: send_y_commit_n = false; ksek = ">" ; break;
-// case 0x387F: send_y_commit_n = false; ksek = "V" ; break;
-            case 0x387F: kk = KeyEvent.KEYCODE_LEFT_BRACKET; break;
-            case 0x787F: case 0x2D7F: send_y_commit_n = false; ksek = "?"; break;
-            case 0x2C7F: kk = KeyEvent.KEYCODE_RIGHT_BRACKET; break;
-            case 0x347F: send_y_commit_n = false; ksek = "~" ; break;
-            case 0x627F: send_y_commit_n = false; ksek = "*" ; break;
-            case 0x1C7F: send_y_commit_n = false; ksek = "^" ; break;
-            case 0x637F: kk = KeyEvent.KEYCODE_O; break;
-            case 0xA07F: if (mKeyboardSwitcher.is_nm_lok()) { kk = KeyEvent.KEYCODE_FORWARD_DEL; } else { send_y_commit_n = false; ksek = "W" ; } break;
-            case 0x017F: if (mKeyboardSwitcher.is_nm_lok()) { kk = KeyEvent.KEYCODE_8; } else { kk = KeyEvent.KEYCODE_ENTER;} break;
-            case 0x027F: if (mKeyboardSwitcher.is_nm_lok()) { kk = KeyEvent.KEYCODE_9; } else { kk = KeyEvent.KEYCODE_TAB; } break;
-            case 0x517F: kk = KeyEvent.KEYCODE_L; break;
-            case 0x047F: send_y_commit_n = false; if (mKeyboardSwitcher.is_nm_lok()) { ksek = "L" ; } else { ksek = "_" ; } break;
-            case 0x087F: if (mKeyboardSwitcher.is_nm_lok()) { send_y_commit_n = false; ksek = "J" ; } else { kk = KeyEvent.KEYCODE_DEL; } break;
-            case 0x207F: if (mKeyboardSwitcher.is_nm_lok()) { send_y_commit_n = false; ksek = "W" ; } else { kk = KeyEvent.KEYCODE_SPACE; } break;
-            default: isl88_up_pending = true ;
-        }
-        if(!isl88_up_pending) send_kk();
-    }
-    public void dot_8E(){
-        isl88_up_pending = false ; meta = 0 ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
-        switch (l88bytes) {
-            // k2p = 1 bilo
-            case 0x01FF: send_y_commit_n = false; ksek = "?"; break;
-            case 0x02FF: send_y_commit_n = false; ksek = "+"; break;
-//            case 0x04FF: send_y_commit_n = false; ksek = "()"; break;
-            case 0x08FF: kk = KeyEvent.KEYCODE_EQUALS; break;
-            case 0x10FF: send_y_commit_n = false; ksek = "*"; break;
-            case 0x20FF: send_y_commit_n = false; ksek = "F"; break;
-            case 0x40FF: kk = KeyEvent.KEYCODE_SEMICOLON; break;
-
-            // k2p = 2  bilo
-            case 0x03FF: kk = KeyEvent.KEYCODE_SEMICOLON; break;
-            case 0x05FF: send_y_commit_n = false; ksek = ":"; break;
-            case 0x06FF: kk = KeyEvent.KEYCODE_L; break;
-            case 0x09FF: kk = KeyEvent.KEYCODE_EQUALS; break;
-            case 0x0AFF: send_y_commit_n = false; ksek = "~"; break;
-// case 0x0CFF: break;
-            case 0x11FF: send_y_commit_n = false; ksek = "#"; break;
-            case 0x12FF: send_y_commit_n = false; ksek = "%"; break;
-            case 0x14FF: send_y_commit_n = false; ksek = "|"; break;
-            case 0x18FF: kk = KeyEvent.KEYCODE_SEMICOLON; break;
-            case 0x21FF: send_y_commit_n = false; ksek = "Z"; break;
-            case 0x22FF: break;
-            case 0x24FF: break;
-            case 0x28FF: break;
-            case 0x30FF: break;
-            case 0x41FF: break;
-            case 0x42FF: break;
-            case 0x44FF: break;
-            case 0x48FF: break;
-            case 0x50FF: break;
-            case 0x60FF: break;
-
-
-            /// key2press = 3 bilo
-
-            // k2p = 4 bilo
-
-            default: isl88_up_pending = true ; break ;
-        }
-        if(!isl88_up_pending) send_kk();
-    }
-    public void sft_06(){
-        isl88_up_pending = false ; meta = 0 ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
-        switch (l88bytes) {
-/////////////////////
-            //k2p = 0 1
-// case 0x047F: break;
-            case 0x047E: send_y_commit_n = false; ksek = "&"; break;
-            case 0x047D: send_y_commit_n = false; ksek = "E"; break;
+/////////////////////////////////////////////////////////////////////////////////
+//            case 0x047D: send_y_commit_n = false; ksek = "E"; break;
             case 0x047B: send_y_commit_n = false; ksek = "C"; break;
             case 0x0477: send_y_commit_n = false; ksek = "U"; break;
             case 0x046F: send_y_commit_n = false; ksek = "@"; break;
@@ -732,7 +614,6 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0x046D: send_y_commit_n = false; ksek = "Z"; break;
             case 0x046B: kk = KeyEvent.KEYCODE_PERIOD; break;
             case 0x0467: send_y_commit_n = false; ksek = "D"; break;
-            case 0x045E: send_y_commit_n = false; ksek = "M"; break;
             case 0x045D: send_y_commit_n = false; ksek = "L"; break;
             case 0x045B: send_y_commit_n = false; ksek = "G"; break;
             case 0x0457: send_y_commit_n = false; ksek = "V"; break;
@@ -753,8 +634,6 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0x046C: kk = KeyEvent.KEYCODE_SEMICOLON; break;
             case 0x046A: send_y_commit_n = false; ksek = "W"; break;
             case 0x0469: send_y_commit_n = false; ksek = "<"; break;
-            case 0x0466: isl88_up_pending = true ; break ;
-            case 0x0465: isl88_up_pending = true ; break ;
             case 0x0463: send_y_commit_n = false; ksek = "~"; break;
             case 0x045C: send_y_commit_n = false; ksek = "()"; break;
             case 0x045A: send_y_commit_n = false; ksek = "%"; break;
@@ -785,41 +664,392 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
 
             //k2p = 4
             case 0x0470: send_y_commit_n = false; ksek = "}"; break;
-            case 0x0468: isl88_up_pending = true ; break ;
-            case 0x0464: isl88_up_pending = true ; break ;
-            case 0x0462: isl88_up_pending = true ; break ;
-            case 0x0461: isl88_up_pending = true ; break ;
-            case 0x0458: isl88_up_pending = true ; break ;
             case 0x0454: send_y_commit_n = false; ksek = "L"; break;
             case 0x0452: send_y_commit_n = false; ksek = "?"; break;
-            case 0x0451: isl88_up_pending = true ; break ;
-            case 0x044C: isl88_up_pending = true ; break ;
-            case 0x044A: isl88_up_pending = true ; break ;
-            case 0x0449: isl88_up_pending = true ; break ;
-            case 0x0446: isl88_up_pending = true ; break ;
-            case 0x0445: isl88_up_pending = true ; break ;
-            case 0x0443: isl88_up_pending = true ; break ;
-            case 0x0438: isl88_up_pending = true ; break ;
-            case 0x0434: isl88_up_pending = true ; break ;
-            case 0x0432: isl88_up_pending = true ; break ;
-            case 0x0431: isl88_up_pending = true ; break ;
-            case 0x042C: isl88_up_pending = true ; break ;
-            case 0x042A: isl88_up_pending = true ; break ;
-            case 0x0429: isl88_up_pending = true ; break ;
             case 0x0426: send_y_commit_n = false; ksek = "{"; break;
-            case 0x0425: isl88_up_pending = true ; break ;
-            case 0x0423: isl88_up_pending = true ; break ;
-            case 0x041C: isl88_up_pending = true ; break ;
-            case 0x041A: isl88_up_pending = true ; break ;
-            case 0x0419: isl88_up_pending = true ; break ;
             case 0x0416: kk = KeyEvent.KEYCODE_RIGHT_BRACKET; break;
-            case 0x0415: isl88_up_pending = true ; break ;
-            case 0x0413: isl88_up_pending = true ; break ;
-            case 0x040E: isl88_up_pending = true ; break ;
-            case 0x040D: isl88_up_pending = true ; break ;
-            case 0x040B: isl88_up_pending = true ; break ;
             case 0x0407: send_y_commit_n = false; ksek = "?"; break;
-            // default
+/////////////////////////////////////////////////////////////////////////////////
+            /// default
+            default: isl88_up_pending = true; break;
+        }
+        if(!isl88_up_pending) send_kk();
+
+    }
+    public void send_8E(){
+        isl88_up_pending = false ; meta = 0 ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
+        final int num88bytes ;
+        if (mKeyboardSwitcher.is_nm_lok() && ((l88bytes & 0x0480) == 0)) {num88bytes =  l88bytes ^ 0x8000 ; } else { num88bytes =  l88bytes ; }
+        switch (num88bytes) {
+            ///////
+            // send_8E : k2p=0,1
+            case 0x007F: isl88_up_pending = true; break;	case 0x00FF: isl88_up_pending = true; break;
+            case 0x807F: isl88_up_pending = true; break;	case 0x80FF: isl88_up_pending = true; break;
+
+            case 0x017F: kk = KeyEvent.KEYCODE_ENTER; break;	case 0x01FF: send_y_commit_n = false; ksek = "?"; break;
+            case 0x817F: isl88_up_pending = true; break;	case 0x81FF: isl88_up_pending = true; break;
+
+            case 0x027F: kk = KeyEvent.KEYCODE_TAB; break;	case 0x02FF: send_y_commit_n = false; ksek = "+"; break;
+            case 0x827F: isl88_up_pending = true; break;	case 0x82FF: isl88_up_pending = true; break;
+
+            case 0x047F: send_y_commit_n = false; ksek = "_" ; break;	case 0x04FF: send_y_commit_n = false; ksek = "[]"; break;
+            case 0x847F: isl88_up_pending = true; break;	case 0x84FF: isl88_up_pending = true; break;
+
+            case 0x087F: kk = KeyEvent.KEYCODE_DEL; break;	case 0x08FF: kk = KeyEvent.KEYCODE_EQUALS; break;
+            case 0x887F: isl88_up_pending = true; break;	case 0x88FF: isl88_up_pending = true; break;
+
+            case 0x107F: isl88_up_pending = true; break;	case 0x10FF: send_y_commit_n = false; ksek = "*"; break;
+            case 0x907F: isl88_up_pending = true; break;	case 0x90FF: isl88_up_pending = true; break;
+
+            case 0x207F: kk = KeyEvent.KEYCODE_SPACE; break;	case 0x20FF: send_y_commit_n = false; ksek = "F"; break;
+            case 0xA07F: send_y_commit_n = false; ksek = "W" ; break;	case 0xA0FF: isl88_up_pending = true; break;
+
+            case 0x407F: kk = KeyEvent.KEYCODE_PERIOD; break;	case 0x40FF: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0xC07F: isl88_up_pending = true; break;	case 0xC0FF: isl88_up_pending = true; break;
+
+            // send_8E : k2p=2
+            case 0x037F: kk = KeyEvent.KEYCODE_COMMA; break;	case 0x03FF: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x837F: isl88_up_pending = true; break;	case 0x83FF: isl88_up_pending = true; break;
+            
+            case 0x057F: isl88_up_pending = true; break;	case 0x05FF: send_y_commit_n = false; ksek = ":"; break;
+            case 0x857F: isl88_up_pending = true; break;	case 0x85FF: isl88_up_pending = true; break;
+            
+            case 0x067F: isl88_up_pending = true; break;	case 0x06FF: kk = KeyEvent.KEYCODE_L; break;
+            case 0x867F: isl88_up_pending = true; break;	case 0x86FF: isl88_up_pending = true; break;
+            
+            case 0x097F: send_y_commit_n = false; ksek = ":" ; break;	case 0x09FF: kk = KeyEvent.KEYCODE_EQUALS; break;
+            case 0x897F: isl88_up_pending = true; break;	case 0x89FF: isl88_up_pending = true; break;
+            
+            case 0x0A7F: isl88_up_pending = true; break;	case 0x0AFF: send_y_commit_n = false; ksek = "~"; break;
+            case 0x8A7F: isl88_up_pending = true; break;	case 0x8AFF: isl88_up_pending = true; break;
+            
+            case 0x0C7F: kk = KeyEvent.KEYCODE_GRAVE; break;	case 0x0CFF: isl88_up_pending = true; break;
+            case 0x8C7F: isl88_up_pending = true; break;	case 0x8CFF: isl88_up_pending = true; break;
+            
+            case 0x117F: isl88_up_pending = true; break;	case 0x11FF: send_y_commit_n = false; ksek = "#"; break;
+            case 0x917F: isl88_up_pending = true; break;	case 0x91FF: isl88_up_pending = true; break;
+            
+            case 0x127F: isl88_up_pending = true; break;	case 0x12FF: send_y_commit_n = false; ksek = "%"; break;
+            case 0x927F: isl88_up_pending = true; break;	case 0x92FF: isl88_up_pending = true; break;
+            
+            case 0x147F: send_y_commit_n = false; ksek = "\"\"" ; break;	case 0x14FF: send_y_commit_n = false; ksek = "|"; break;
+            case 0x947F: isl88_up_pending = true; break;	case 0x94FF: isl88_up_pending = true; break;
+            
+            case 0x187F: kk = KeyEvent.KEYCODE_APOSTROPHE; break;	case 0x18FF: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x987F: isl88_up_pending = true; break;	case 0x98FF: isl88_up_pending = true; break;
+            
+            case 0x217F: send_y_commit_n = false; ksek = "*" ; break;	case 0x21FF: send_y_commit_n = false; ksek = "Z"; break;
+            case 0xA17F: isl88_up_pending = true; break;	case 0xA1FF: isl88_up_pending = true; break;
+            
+            case 0x227F: isl88_up_pending = true; break;	case 0x22FF: isl88_up_pending = true; break;
+            case 0xA27F: isl88_up_pending = true; break;	case 0xA2FF: isl88_up_pending = true; break;
+            
+            case 0x247F: isl88_up_pending = true; break;	case 0x24FF: isl88_up_pending = true; break;
+            case 0xA47F: isl88_up_pending = true; break;	case 0xA4FF: isl88_up_pending = true; break;
+            
+            case 0x287F: kk = KeyEvent.KEYCODE_EQUALS; break;	case 0x28FF: isl88_up_pending = true; break;
+            case 0xA87F: isl88_up_pending = true; break;	case 0xA8FF: isl88_up_pending = true; break;
+            
+            case 0x307F: isl88_up_pending = true; break;	case 0x30FF: isl88_up_pending = true; break;
+            case 0xB07F: isl88_up_pending = true; break;	case 0xB0FF: isl88_up_pending = true; break;
+            
+            case 0x417F: isl88_up_pending = true; break;	case 0x41FF: isl88_up_pending = true; break;
+            case 0xC17F: isl88_up_pending = true; break;	case 0xC1FF: isl88_up_pending = true; break;
+            
+            case 0x427F: isl88_up_pending = true; break;	case 0x42FF: isl88_up_pending = true; break;
+            case 0xC27F: isl88_up_pending = true; break;	case 0xC2FF: isl88_up_pending = true; break;
+            
+            case 0x447F: isl88_up_pending = true; break;	case 0x44FF: isl88_up_pending = true; break;
+            case 0xC47F: isl88_up_pending = true; break;	case 0xC4FF: isl88_up_pending = true; break;
+            
+            case 0x487F: isl88_up_pending = true; break;	case 0x48FF: isl88_up_pending = true; break;
+            case 0xC87F: isl88_up_pending = true; break;	case 0xC8FF: isl88_up_pending = true; break;
+            
+            case 0x507F: isl88_up_pending = true; break;	case 0x50FF: isl88_up_pending = true; break;
+            case 0xD07F: isl88_up_pending = true; break;	case 0xD0FF: isl88_up_pending = true; break;
+            
+            case 0x607F: kk = KeyEvent.KEYCODE_R; break;	case 0x60FF: isl88_up_pending = true; break;
+            case 0xE07F: isl88_up_pending = true; break;	case 0xE0FF: isl88_up_pending = true; break;
+
+            // send_8E : k2p=3
+            case 0x077F: kk = KeyEvent.KEYCODE_SEMICOLON; break;	case 0x07FF: isl88_up_pending = true; break;
+            case 0x877F: isl88_up_pending = true; break;	case 0x87FF: isl88_up_pending = true; break;
+            
+            case 0x0B7F: kk = KeyEvent.KEYCODE_SEMICOLON; break;	case 0x0BFF: isl88_up_pending = true; break;
+            case 0x8B7F: isl88_up_pending = true; break;	case 0x8BFF: isl88_up_pending = true; break;
+            
+            case 0x0D7F: isl88_up_pending = true; break;	case 0x0DFF: isl88_up_pending = true; break;
+            case 0x8D7F: isl88_up_pending = true; break;	case 0x8DFF: isl88_up_pending = true; break;
+            
+            case 0x0E7F: isl88_up_pending = true; break;	case 0x0EFF: isl88_up_pending = true; break;
+            case 0x8E7F: isl88_up_pending = true; break;	case 0x8EFF: isl88_up_pending = true; break;
+            
+            case 0x137F: isl88_up_pending = true; break;	case 0x13FF: isl88_up_pending = true; break;
+            case 0x937F: isl88_up_pending = true; break;	case 0x93FF: isl88_up_pending = true; break;
+            
+            case 0x157F: isl88_up_pending = true; break;	case 0x15FF: isl88_up_pending = true; break;
+            case 0x957F: isl88_up_pending = true; break;	case 0x95FF: isl88_up_pending = true; break;
+            
+            case 0x167F: isl88_up_pending = true; break;	case 0x16FF: isl88_up_pending = true; break;
+            case 0x967F: isl88_up_pending = true; break;	case 0x96FF: isl88_up_pending = true; break;
+            
+            case 0x197F: isl88_up_pending = true; break;	case 0x19FF: isl88_up_pending = true; break;
+            case 0x997F: isl88_up_pending = true; break;	case 0x99FF: isl88_up_pending = true; break;
+            
+            case 0x1A7F: isl88_up_pending = true; break;	case 0x1AFF: isl88_up_pending = true; break;
+            case 0x9A7F: isl88_up_pending = true; break;	case 0x9AFF: isl88_up_pending = true; break;
+            
+            case 0x1C7F: send_y_commit_n = false; ksek = "^" ; break;	case 0x1CFF: isl88_up_pending = true; break;
+            case 0x9C7F: isl88_up_pending = true; break;	case 0x9CFF: isl88_up_pending = true; break;
+            
+            case 0x237F: send_y_commit_n = false; ksek = ">" ; break;	case 0x23FF: isl88_up_pending = true; break;
+            case 0xA37F: isl88_up_pending = true; break;	case 0xA3FF: isl88_up_pending = true; break;
+            
+            case 0x257F: isl88_up_pending = true; break;	case 0x25FF: isl88_up_pending = true; break;
+            case 0xA57F: isl88_up_pending = true; break;	case 0xA5FF: isl88_up_pending = true; break;
+            
+            case 0x267F: kk = KeyEvent.KEYCODE_LEFT_BRACKET; break;	case 0x26FF: isl88_up_pending = true; break;
+            case 0xA67F: isl88_up_pending = true; break;	case 0xA6FF: isl88_up_pending = true; break;
+            
+            case 0x297F: send_y_commit_n = false; ksek = "|" ; break;	case 0x29FF: isl88_up_pending = true; break;
+            case 0xA97F: isl88_up_pending = true; break;	case 0xA9FF: isl88_up_pending = true; break;
+            
+            case 0x2A7F: isl88_up_pending = true; break;	case 0x2AFF: isl88_up_pending = true; break;
+            case 0xAA7F: isl88_up_pending = true; break;	case 0xAAFF: isl88_up_pending = true; break;
+            
+            case 0x2C7F: kk = KeyEvent.KEYCODE_RIGHT_BRACKET; break;	case 0x2CFF: isl88_up_pending = true; break;
+            case 0xAC7F: isl88_up_pending = true; break;	case 0xACFF: isl88_up_pending = true; break;
+            
+            case 0x317F: isl88_up_pending = true; break;	case 0x31FF: isl88_up_pending = true; break;
+            case 0xB17F: isl88_up_pending = true; break;	case 0xB1FF: isl88_up_pending = true; break;
+            
+            case 0x327F: kk = KeyEvent.KEYCODE_BACKSLASH; break;	case 0x32FF: isl88_up_pending = true; break;
+            case 0xB27F: isl88_up_pending = true; break;	case 0xB2FF: isl88_up_pending = true; break;
+            
+            case 0x347F: send_y_commit_n = false; ksek = "~" ; break;	case 0x34FF: isl88_up_pending = true; break;
+            case 0xB47F: isl88_up_pending = true; break;	case 0xB4FF: isl88_up_pending = true; break;
+            
+            case 0x387F: kk = KeyEvent.KEYCODE_LEFT_BRACKET; break;	case 0x38FF: isl88_up_pending = true; break;
+            case 0xB87F: isl88_up_pending = true; break;	case 0xB8FF: isl88_up_pending = true; break;
+            
+            case 0x437F: isl88_up_pending = true; break;	case 0x43FF: isl88_up_pending = true; break;
+            case 0xC37F: isl88_up_pending = true; break;	case 0xC3FF: isl88_up_pending = true; break;
+            
+            case 0x457F: isl88_up_pending = true; break;	case 0x45FF: isl88_up_pending = true; break;
+            case 0xC57F: isl88_up_pending = true; break;	case 0xC5FF: isl88_up_pending = true; break;
+            
+            case 0x467F: isl88_up_pending = true; break;	case 0x46FF: isl88_up_pending = true; break;
+            case 0xC67F: isl88_up_pending = true; break;	case 0xC6FF: isl88_up_pending = true; break;
+            
+            case 0x497F: isl88_up_pending = true; break;	case 0x49FF: isl88_up_pending = true; break;
+            case 0xC97F: isl88_up_pending = true; break;	case 0xC9FF: isl88_up_pending = true; break;
+            
+            case 0x4A7F: isl88_up_pending = true; break;	case 0x4AFF: isl88_up_pending = true; break;
+            case 0xCA7F: isl88_up_pending = true; break;	case 0xCAFF: isl88_up_pending = true; break;
+            
+            case 0x4C7F: isl88_up_pending = true; break;	case 0x4CFF: isl88_up_pending = true; break;
+            case 0xCC7F: isl88_up_pending = true; break;	case 0xCCFF: isl88_up_pending = true; break;
+            
+            case 0x517F: kk = KeyEvent.KEYCODE_L; break;	case 0x51FF: isl88_up_pending = true; break;
+            case 0xD17F: isl88_up_pending = true; break;	case 0xD1FF: isl88_up_pending = true; break;
+            
+            case 0x527F: isl88_up_pending = true; break;	case 0x52FF: isl88_up_pending = true; break;
+            case 0xD27F: isl88_up_pending = true; break;	case 0xD2FF: isl88_up_pending = true; break;
+            
+            case 0x547F: isl88_up_pending = true; break;	case 0x54FF: isl88_up_pending = true; break;
+            case 0xD47F: isl88_up_pending = true; break;	case 0xD4FF: isl88_up_pending = true; break;
+            
+            case 0x587F: isl88_up_pending = true; break;	case 0x58FF: isl88_up_pending = true; break;
+            case 0xD87F: isl88_up_pending = true; break;	case 0xD8FF: isl88_up_pending = true; break;
+            
+            case 0x617F: send_y_commit_n = false; ksek = "<" ; break;	case 0x61FF: isl88_up_pending = true; break;
+            case 0xE17F: isl88_up_pending = true; break;	case 0xE1FF: isl88_up_pending = true; break;
+            
+            case 0x627F: send_y_commit_n = false; ksek = "*" ; break;	case 0x62FF: isl88_up_pending = true; break;
+            case 0xE27F: isl88_up_pending = true; break;	case 0xE2FF: isl88_up_pending = true; break;
+            
+            case 0x647F: kk = KeyEvent.KEYCODE_SLASH; break;	case 0x64FF: isl88_up_pending = true; break;
+            case 0xE47F: send_y_commit_n = false; ksek = "%" ; break;	case 0xE4FF: isl88_up_pending = true; break;
+            
+            case 0x687F: isl88_up_pending = true; break;	case 0x68FF: isl88_up_pending = true; break;
+            case 0xE87F: isl88_up_pending = true; break;	case 0xE8FF: isl88_up_pending = true; break;
+            
+            case 0x707F: isl88_up_pending = true; break;	case 0x70FF: isl88_up_pending = true; break;
+            case 0xF07F: isl88_up_pending = true; break;	case 0xF0FF: isl88_up_pending = true; break;
+
+            // send_8E : k2p=4
+            case 0x0F7F: isl88_up_pending = true; break;	case 0x0FFF: isl88_up_pending = true; break;
+            case 0x8F7F: isl88_up_pending = true; break;	case 0x8FFF: isl88_up_pending = true; break;
+            
+            case 0x177F: isl88_up_pending = true; break;	case 0x17FF: isl88_up_pending = true; break;
+            case 0x977F: isl88_up_pending = true; break;	case 0x97FF: isl88_up_pending = true; break;
+            
+            case 0x1B7F: isl88_up_pending = true; break;	case 0x1BFF: isl88_up_pending = true; break;
+            case 0x9B7F: isl88_up_pending = true; break;	case 0x9BFF: isl88_up_pending = true; break;
+            
+            case 0x1D7F: isl88_up_pending = true; break;	case 0x1DFF: isl88_up_pending = true; break;
+            case 0x9D7F: isl88_up_pending = true; break;	case 0x9DFF: isl88_up_pending = true; break;
+            
+            case 0x1E7F: isl88_up_pending = true; break;	case 0x1EFF: isl88_up_pending = true; break;
+            case 0x9E7F: isl88_up_pending = true; break;	case 0x9EFF: isl88_up_pending = true; break;
+            
+            case 0x277F: isl88_up_pending = true; break;	case 0x27FF: isl88_up_pending = true; break;
+            case 0xA77F: isl88_up_pending = true; break;	case 0xA7FF: isl88_up_pending = true; break;
+            
+            case 0x2B7F: isl88_up_pending = true; break;	case 0x2BFF: isl88_up_pending = true; break;
+            case 0xAB7F: isl88_up_pending = true; break;	case 0xABFF: isl88_up_pending = true; break;
+            
+            case 0x2D7F: send_y_commit_n = false; ksek = "?"; break;	case 0x2DFF: isl88_up_pending = true; break;
+            case 0xAD7F: isl88_up_pending = true; break;	case 0xADFF: isl88_up_pending = true; break;
+            
+            case 0x2E7F: isl88_up_pending = true; break;	case 0x2EFF: isl88_up_pending = true; break;
+            case 0xAE7F: isl88_up_pending = true; break;	case 0xAEFF: isl88_up_pending = true; break;
+            
+            case 0x337F: isl88_up_pending = true; break;	case 0x33FF: isl88_up_pending = true; break;
+            case 0xB37F: isl88_up_pending = true; break;	case 0xB3FF: isl88_up_pending = true; break;
+            
+            case 0x357F: isl88_up_pending = true; break;	case 0x35FF: isl88_up_pending = true; break;
+            case 0xB57F: isl88_up_pending = true; break;	case 0xB5FF: isl88_up_pending = true; break;
+            
+            case 0x367F: isl88_up_pending = true; break;	case 0x36FF: isl88_up_pending = true; break;
+            case 0xB67F: isl88_up_pending = true; break;	case 0xB6FF: isl88_up_pending = true; break;
+            
+            case 0x397F: isl88_up_pending = true; break;	case 0x39FF: isl88_up_pending = true; break;
+            case 0xB97F: isl88_up_pending = true; break;	case 0xB9FF: isl88_up_pending = true; break;
+            
+            case 0x3A7F: isl88_up_pending = true; break;	case 0x3AFF: isl88_up_pending = true; break;
+            case 0xBA7F: isl88_up_pending = true; break;	case 0xBAFF: isl88_up_pending = true; break;
+            
+            case 0x3C7F: isl88_up_pending = true; break;	case 0x3CFF: isl88_up_pending = true; break;
+            case 0xBC7F: isl88_up_pending = true; break;	case 0xBCFF: isl88_up_pending = true; break;
+            
+            case 0x477F: isl88_up_pending = true; break;	case 0x47FF: isl88_up_pending = true; break;
+            case 0xC77F: isl88_up_pending = true; break;	case 0xC7FF: isl88_up_pending = true; break;
+            
+            case 0x4B7F: isl88_up_pending = true; break;	case 0x4BFF: isl88_up_pending = true; break;
+            case 0xCB7F: isl88_up_pending = true; break;	case 0xCBFF: isl88_up_pending = true; break;
+            
+            case 0x4D7F: isl88_up_pending = true; break;	case 0x4DFF: isl88_up_pending = true; break;
+            case 0xCD7F: isl88_up_pending = true; break;	case 0xCDFF: isl88_up_pending = true; break;
+            
+            case 0x4E7F: isl88_up_pending = true; break;	case 0x4EFF: isl88_up_pending = true; break;
+            case 0xCE7F: isl88_up_pending = true; break;	case 0xCEFF: isl88_up_pending = true; break;
+            
+            case 0x537F: isl88_up_pending = true; break;	case 0x53FF: isl88_up_pending = true; break;
+            case 0xD37F: isl88_up_pending = true; break;	case 0xD3FF: isl88_up_pending = true; break;
+            
+            case 0x557F: isl88_up_pending = true; break;	case 0x55FF: isl88_up_pending = true; break;
+            case 0xD57F: isl88_up_pending = true; break;	case 0xD5FF: isl88_up_pending = true; break;
+            
+            case 0x567F: isl88_up_pending = true; break;	case 0x56FF: isl88_up_pending = true; break;
+            case 0xD67F: isl88_up_pending = true; break;	case 0xD6FF: isl88_up_pending = true; break;
+            
+            case 0x597F: isl88_up_pending = true; break;	case 0x59FF: isl88_up_pending = true; break;
+            case 0xD97F: isl88_up_pending = true; break;	case 0xD9FF: isl88_up_pending = true; break;
+            
+            case 0x5A7F: isl88_up_pending = true; break;	case 0x5AFF: isl88_up_pending = true; break;
+            case 0xDA7F: isl88_up_pending = true; break;	case 0xDAFF: isl88_up_pending = true; break;
+            
+            case 0x5C7F: isl88_up_pending = true; break;	case 0x5CFF: isl88_up_pending = true; break;
+            case 0xDC7F: isl88_up_pending = true; break;	case 0xDCFF: isl88_up_pending = true; break;
+            
+            case 0x637F: kk = KeyEvent.KEYCODE_O; break;	case 0x63FF: isl88_up_pending = true; break;
+            case 0xE37F: isl88_up_pending = true; break;	case 0xE3FF: isl88_up_pending = true; break;
+            
+            case 0x657F: isl88_up_pending = true; break;	case 0x65FF: isl88_up_pending = true; break;
+            case 0xE57F: isl88_up_pending = true; break;	case 0xE5FF: isl88_up_pending = true; break;
+            
+            case 0x667F: isl88_up_pending = true; break;	case 0x66FF: isl88_up_pending = true; break;
+            case 0xE67F: isl88_up_pending = true; break;	case 0xE6FF: isl88_up_pending = true; break;
+            
+            case 0x697F: send_y_commit_n = false; ksek = "!" ; break;	case 0x69FF: isl88_up_pending = true; break;
+            case 0xE97F: isl88_up_pending = true; break;	case 0xE9FF: isl88_up_pending = true; break;
+            
+            case 0x6A7F: isl88_up_pending = true; break;	case 0x6AFF: isl88_up_pending = true; break;
+            case 0xEA7F: isl88_up_pending = true; break;	case 0xEAFF: isl88_up_pending = true; break;
+            
+            case 0x6C7F: isl88_up_pending = true; break;	case 0x6CFF: isl88_up_pending = true; break;
+            case 0xEC7F: isl88_up_pending = true; break;	case 0xECFF: isl88_up_pending = true; break;
+            
+            case 0x717F: isl88_up_pending = true; break;	case 0x71FF: isl88_up_pending = true; break;
+            case 0xF17F: isl88_up_pending = true; break;	case 0xF1FF: isl88_up_pending = true; break;
+            
+            case 0x727F: isl88_up_pending = true; break;	case 0x72FF: isl88_up_pending = true; break;
+            case 0xF27F: isl88_up_pending = true; break;	case 0xF2FF: isl88_up_pending = true; break;
+            
+            case 0x747F: isl88_up_pending = true; break;	case 0x74FF: isl88_up_pending = true; break;
+            case 0xF47F: isl88_up_pending = true; break;	case 0xF4FF: isl88_up_pending = true; break;
+            
+            case 0x787F: send_y_commit_n = false; ksek = "?"; break;	case 0x78FF: isl88_up_pending = true; break;
+            case 0xF87F: isl88_up_pending = true; break;	case 0xF8FF: isl88_up_pending = true; break;
+
+            default: isl88_up_pending = true ;
+        }
+        if(!isl88_up_pending) send_kk();
+    }
+    public void dot_8E(){
+        isl88_up_pending = false ; meta = 0 ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
+        switch (l88bytes) {
+
+            ///////////////
+//            case 0x01FF: send_y_commit_n = false; ksek = "?"; break;
+//            case 0x02FF: send_y_commit_n = false; ksek = "+"; break;
+//            case 0x04FF: send_y_commit_n = false; ksek = "()"; break;
+//            case 0x08FF: kk = KeyEvent.KEYCODE_EQUALS; break;
+//            case 0x10FF: send_y_commit_n = false; ksek = "*"; break;
+//            case 0x20FF: send_y_commit_n = false; ksek = "F"; break;
+//            case 0x40FF: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+
+            // k2p = 2  bilo
+//            case 0x03FF: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+//            case 0x05FF: send_y_commit_n = false; ksek = ":"; break;
+//            case 0x06FF: kk = KeyEvent.KEYCODE_L; break;
+//            case 0x09FF: kk = KeyEvent.KEYCODE_EQUALS; break;
+//            case 0x0AFF: send_y_commit_n = false; ksek = "~"; break;
+// case 0x0CFF: break;
+//            case 0x11FF: send_y_commit_n = false; ksek = "#"; break;
+//            case 0x12FF: send_y_commit_n = false; ksek = "%"; break;
+//            case 0x14FF: send_y_commit_n = false; ksek = "|"; break;
+//            case 0x18FF: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+//            case 0x21FF: send_y_commit_n = false; ksek = "Z"; break;
+            ///////////////
+            // k2p = 1 bilo
+//            case 0x01FF: send_y_commit_n = false; ksek = "?"; break;
+//            case 0x02FF: send_y_commit_n = false; ksek = "+"; break;
+////            case 0x04FF: send_y_commit_n = false; ksek = "()"; break;
+//            case 0x08FF: kk = KeyEvent.KEYCODE_EQUALS; break;
+//            case 0x10FF: send_y_commit_n = false; ksek = "*"; break;
+//            case 0x20FF: send_y_commit_n = false; ksek = "F"; break;
+//            case 0x40FF: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+//
+//            // k2p = 2  bilo
+//            case 0x03FF: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+//            case 0x05FF: send_y_commit_n = false; ksek = ":"; break;
+//            case 0x06FF: kk = KeyEvent.KEYCODE_L; break;
+//            case 0x09FF: kk = KeyEvent.KEYCODE_EQUALS; break;
+//            case 0x0AFF: send_y_commit_n = false; ksek = "~"; break;
+//// case 0x0CFF: break;
+//            case 0x11FF: send_y_commit_n = false; ksek = "#"; break;
+//            case 0x12FF: send_y_commit_n = false; ksek = "%"; break;
+//            case 0x14FF: send_y_commit_n = false; ksek = "|"; break;
+//            case 0x18FF: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+//            case 0x21FF: send_y_commit_n = false; ksek = "Z"; break;
+//            case 0x22FF: break;
+//            case 0x24FF: break;
+//            case 0x28FF: break;
+//            case 0x30FF: break;
+//            case 0x41FF: break;
+//            case 0x42FF: break;
+//            case 0x44FF: break;
+//            case 0x48FF: break;
+//            case 0x50FF: break;
+//            case 0x60FF: break;
+
+
+            /// key2press = 3 bilo
+
+            // k2p = 4 bilo
+
             default: isl88_up_pending = true ; break ;
         }
         if(!isl88_up_pending) send_kk();
@@ -850,7 +1080,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             switch (l88bytes) {
                 case 0x107E: case 0x106F: kk = KeyEvent.KEYCODE_A; break;
                 case 0x1059: case 0x101F: kk = KeyEvent.KEYCODE_C; break; case 0x1073: kk = KeyEvent.KEYCODE_B; break;
-                case 0x107D: kk = KeyEvent.KEYCODE_E; break;
+                case 0x107D: kk = KeyEvent.KEYCODE_E; break; case 0x907D: kk = KeyEvent.KEYCODE_1; break;
                 case 0x1078: kk = KeyEvent.KEYCODE_F; break;
                 case 0x105B: kk = KeyEvent.KEYCODE_G; break;
                 case 0x1067: kk = KeyEvent.KEYCODE_D; break;
@@ -861,7 +1091,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
                 case 0x106D: kk = KeyEvent.KEYCODE_Z; break;
                 case 0x107B: kk = KeyEvent.KEYCODE_T; break;
                 case 0x307F: kk = KeyEvent.KEYCODE_W; break;
-                case 0x907D: kk = KeyEvent.KEYCODE_1; break;
+
                 case 0x907B: kk = KeyEvent.KEYCODE_2; break;
                 case 0x9077: kk = KeyEvent.KEYCODE_3; break;
                 case 0x906F: kk = KeyEvent.KEYCODE_4; break;
