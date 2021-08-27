@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="candidate_normal">#FFFFFF</color>
+    <color name="candidate_recommended">#FCAE00</color>
+    <color name="candidate_other">#FCAE00</color>
+    <color name="segcolor_tekst">#00FF00</color>
+    <color name="klr_lcd2_on">#999999</color>
+    <color name="klr_lcd2_oph">#000000</color>
+    <color name="klr_lcd1_on">#000000</color>
+    <color name="klr_lcd1_oph">#CCCC00</color>
+    <color name="klr_del">#FF4444</color>
+    <color name="klr_minu">#88FFFF</color>
+    <color name="klr_sft">#8888FF</color>
+    <color name="klr_star_mul">#0000FF</color>
+    <color name="klr_ktl_alt">#FFAAAA</color>
+    <color name="klr_num_rect_oph">#FFFFFF</color><color name="klr_123_on">#000000</color><color name="klr_123_oph">#FF7777</color>
+    <color name="klr_go_muv">#FF88FF</color>
+    <color name="tekst_12_oph">#FF0000</color>
+    <color name="red">#FF0000</color>
+    <color name="on_green">#00CC00</color>
+    <color name="bkspes_klr">#000000</color>
+    <color name="latinkeyboard_transparent">#00000000</color>
+    <color name="latinkeyboard_bar_language_shadow_white">#80000000</color>
+    <color name="latinkeyboard_bar_language_shadow_black">#80FFFFFF</color>
+    <color name="latinkeyboard_dim_color_white">#DDDDDD</color>
+    <color name="latinkeyboard_dim_color_black">#222222</color>
+    <color name="latinkeyboard_extension_background">#A0000000</color>
+    <color name="latinkeyboard_feedback_language_text">#FFFFFF</color>
+    <color name="latinkeyboard_key_color_white">#FFFFFF</color>
+    <color name="latinkeyboard_key_color_black">#000000</color>
+    <!--Material Keyboard Colors-->
+    <color name="key_background_material_black">#000000</color>
+    <color name="key_background_pressed_material_black">#19FFFFFF</color>
+    <color name="key_text_color_material_black">#CCFFFFFF</color>
+    <color name="key_hint_letter_color_material_black">#80FFFFFF</color>
+    <color name="key_background_material_dark">#263238</color>
+    <color name="key_background_pressed_material_dark">#19FFFFFF</color>
+    <color name="key_text_color_material_dark">#CCFFFFFF</color>
+    <color name="key_hint_letter_color_material_dark">#80FFFFFF</color>
+    <color name="key_background_material_light">#ECEFF1</color>
+    <color name="key_background_pressed_material_light">#2637474F</color>
+    <color name="key_text_color_material_light">#000000</color>
+    <color name="key_hint_letter_color_material_light">#B337474F</color>
+    <color name="light_blue_400">#29B6F6</color>
+    <color name="light_blue_600">#039BE5</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_600">#757575</color>
+</resources>

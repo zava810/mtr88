@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LatinKeyboardBaseView">
+        <attr name="keyboardViewStyle" format="reference" />
+        <attr name="keyBackground" format="reference" />
+<!--        <attr name="keyTextSize" format="dimension" />-->
+<!--        <attr name="labelTextSize" format="dimension" />-->
+<!--        <attr name="keyTextColor" format="color" /><attr name="keyHintColor" format="color" />-->
+        <attr name="shadowColor" format="color" /><attr name="keyCursorColor" format="color" />
+        <attr name="backgroundAlpha" format="integer" />
+<!--        <attr name="keyHysteresisDistance" format="dimension" />-->
+<!--        <attr name="verticalCorrection" format="dimension" />-->
+        <attr name="shadowRadius" format="float" />
+        <attr name="backgroundDimAmount" format="float" />
+<!--        <attr name="keyTextStyle"><flag name="normal" value="0" /><flag name="bold" value="1" /><flag name="italic" value="2" /></attr>-->
+    </declare-styleable>
+</resources>

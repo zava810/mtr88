@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="stylexml_mt88_viyu">
+        <item name="android:background">@drawable/keyboard_background</item>
+        <item name="android:fontFamily">@font/u5cdot</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_ics</item>
+        <item name="keyCursorColor">#FFBBBBBB</item>
+        <item name="shadowColor">#BB000000</item>
+        <item name="shadowRadius">2.75</item>
+        <item name="backgroundDimAmount">0.5</item>
+        <item name="backgroundAlpha" tools:targetApi="jelly_bean">255</item>
+    </style>
+    <style name="KeyPreviewAnimation">
+        <item name="android:windowEnterAnimation">@anim/key_preview_fadein</item>
+        <item name="android:windowExitAnimation">@anim/key_preview_fadeout</item>
+        <item name="android:fontFamily">@font/u5cdot</item>
+    </style>
+    <style name="MiniKeyboardAnimation">
+        <item name="android:windowEnterAnimation">@anim/mini_keyboard_fadein</item>
+        <item name="android:windowExitAnimation">@anim/mini_keyboard_fadeout</item>
+        <item name="android:fontFamily">@font/u5cdot</item>
+    </style>
+    <style name="Widget.Theme.Multitouch_keypad.MyView" parent="">
+        <item name="android:background">@color/gray_400</item>
+        <item name="exampleColor">@color/light_blue_400</item>
+        <item name="android:fontFamily">@font/u5cdot</item>
+    </style>
+</resources>

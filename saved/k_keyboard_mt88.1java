@@ -1,0 +1,262 @@
+package org.kiibord.lcd77;
+import android.content.Context;
+
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.view.MotionEvent;
+import android.view.View;
+
+import java.lang.reflect.Method;
+
+public class k_keyboard_mt88 extends View  {
+    // The keycode list needs to stay in sync with the
+    // res/values/keycodes.xml file.
+
+    // FIXME: The following keycodes should really be renumbered
+    // since they conflict with existing KeyEvent keycodes.
+    static final int KEYCODE_OPTIONS = -100;
+    static final int KEYCODE_OPTIONS_LONGPRESS = -101;
+    static final int KEYCODE_VOICE = -102;
+    static final int KEYCODE_F1 = -103;
+    static final int KEYCODE_NEXT_LANGUAGE = -104;
+    static final int KEYCODE_PREV_LANGUAGE = -105;
+    static final int KEYCODE_COMPOSE = -10024;
+
+    // The following keycodes match (negative) KeyEvent keycodes.
+    // Would be better to use the real KeyEvent values, but many
+    // don't exist prior to the Honeycomb API (level 11).
+    static final int KEYCODE_DPAD_UP = -19;
+    static final int KEYCODE_DPAD_DOWN = -20;
+    static final int KEYCODE_DPAD_LEFT = -21;
+    static final int KEYCODE_DPAD_RIGHT = -22;
+    static final int KEYCODE_DPAD_CENTER = -23;
+    static final int KEYCODE_ALT_LEFT = -57;
+    static final int KEYCODE_PAGE_UP = -92;
+    static final int KEYCODE_PAGE_DOWN = -93;
+    static final int KEYCODE_ESCAPE = -111;
+    static final int KEYCODE_FORWARD_DEL = -112;
+    static final int KEYCODE_CTRL_LEFT = -113;
+    static final int KEYCODE_CAPS_LOCK = -115;
+    static final int KEYCODE_SCROLL_LOCK = -116;
+    static final int KEYCODE_META_LEFT = -117;
+    static final int KEYCODE_FN = -119;
+    static final int KEYCODE_SYSRQ = -120;
+    static final int KEYCODE_BREAK = -121;
+    static final int KEYCODE_HOME = -122;
+    static final int KEYCODE_END = -123;
+    static final int KEYCODE_INSERT = -124;
+    static final int KEYCODE_FKEY_F1 = -131;
+    static final int KEYCODE_FKEY_F2 = -132;
+    static final int KEYCODE_FKEY_F3 = -133;
+    static final int KEYCODE_FKEY_F4 = -134;
+    static final int KEYCODE_FKEY_F5 = -135;
+    static final int KEYCODE_FKEY_F6 = -136;
+    static final int KEYCODE_FKEY_F7 = -137;
+    static final int KEYCODE_FKEY_F8 = -138;
+    static final int KEYCODE_FKEY_F9 = -139;
+    static final int KEYCODE_FKEY_F10 = -140;
+    static final int KEYCODE_FKEY_F11 = -141;
+    static final int KEYCODE_FKEY_F12 = -142;
+    static final int KEYCODE_NUM_LOCK = -143;
+
+    public static final int KEYCODE_MODE_CHANGE = -2;
+    public static final int KEYCODE_CANCEL = -3;
+    public static final int KEYCODE_DONE = -4;
+    public static final int KEYCODE_DELETE = -5;
+    public static final int KEYCODE_ALT_SYM = -6;
+
+//    private final boolean mHasDistinctMultitouch;
+    private int seg2bytes = 0x007F ; int prev_seg_no = -1 ;
+    private Paint paintLine;
+    private float seglen ; private float seg035len ; private float seg12467len ;
+    private float segheight ; private float seg035height ; private float seg12467height ;
+    private float seg_translatek ; private float seg_translatey ;
+    private float[][] seg_coords ;
+    public boolean is_nmlk_on = false;
+    private boolean isMeasured;
+    /////////////////
+    public static final int SHIFT_OFF = 0;
+    public static final int SHIFT_ON = 1;
+    public static final int SHIFT_LOCKED = 2;
+    //////////// https://android-developers.googleblog.com/2010/06/making-sense-of-multitouch.html
+    //////////// https://stackoverflow.com/questions/4268426/android-difference-between-action-up-and-action-pointer-up/4269592#4269592
+    public interface on_m88_lisnr { void onText(int l88bytes);}
+//    mHasDistinctMultitouch = context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH_DISTINCT);
+//    mKeyRepeatInterval = res.getInteger(R.integer.config_key_repeat_interval);
+    private on_m88_lisnr m88_lisnr;
+    private int kibord_disple_vidTh;private int kibord_disple_hait;
+    static Method sSetRenderMode;
+    public k_keyboard_mt88(Context context, AttributeSet attrs) { super(context, attrs, 0);
+        DisplayMetrics dm = context.getResources().getDisplayMetrics();
+        kibord_disple_vidTh = dm.widthPixels; kibord_disple_hait = dm.heightPixels;
+        paintLine = new Paint();paintLine.setAntiAlias(true);paintLine.setStyle(Paint.Style.FILL);
+    }
+    public void seton_m88_lisnr(on_m88_lisnr listener) { m88_lisnr = listener; }
+    @Override public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        kibord_disple_hait = (int) Math.ceil(3*kibord_disple_vidTh/11);
+        setMeasuredDimension(kibord_disple_vidTh, kibord_disple_hait);
+        if (!isMeasured) { isMeasured = true;
+//            private int seglen ; private int seg035len ; private int seg12467len ;
+//            private int segheight ; private int seg035height ; private int seg12467height ;
+            seg12467len = kibord_disple_vidTh/11; seg035len = seg12467len * 3;
+            seg035height = seg12467len ; seg12467height = seg035height*1.5f;
+            seg_translatek = seg035height*6 ; seg_translatey = seg035height*1.5f ;
+            seg_coords = new float[][]{ // 0, 1 6, 5, 2 4 , 3 , 7
+                    {seg12467len*7,seg035height*2,seg12467len*10,seg035height*3}, // 0
+                    {seg12467len*10,seg12467height,seg12467len*11,seg12467height*2}, // 1
+                    {seg12467len*10,0,seg12467len*11,seg12467height}, // 2
+                    {seg12467len*7,0,seg12467len*10,seg035height}, // 3
+                    {seg12467len*6,0,seg12467len*7,seg12467height}, // 4
+                    {seg12467len*7,seg035height,seg12467len*10,seg035height*2}, // 5
+                    {seg12467len*6,seg12467height,seg12467len*7,seg12467height*2}, // 6
+                    {seg12467len*5,seg12467height,seg12467len*6,seg12467height*2}, // 7
+
+                    {seg12467len,seg035height*2,seg12467len*4,seg035height*3}, // 8
+                    {seg12467len*4,seg12467height,seg12467len*5,seg12467height*2}, // 9
+                    {seg12467len*4,0,seg12467len*5,seg12467height}, // L=ten=Ds=8+2
+                    {seg12467len,0,seg12467len*4,seg035height}, // J=zilevn=zyarh=8+3
+                    {0,0,seg12467len*7,seg12467height}, // Q=kvAlv=barh=8+4
+                    {seg12467len,seg035height,seg12467len*4,seg035height*2}, // W=dblu=Terh=8+5=ten+3
+                    {0,seg12467height,seg12467len,seg12467height*2}, // X=Aksen=coDH=8+6
+                    {seg12467len*5,0,seg12467len*6,seg12467height}, // F= phen = pnDrh = 8+7= 10-1 = vnti - vn
+            };
+        }
+    }
+    @Override protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas); draw_seg2bytes(canvas);
+//        paintLine.setTextSize(40f); paintLine.setColor(getResources().getColor(R.color.on_green));
+//        canvas.drawText("F", seg_coords[8][0]+segheight, seg_coords[8][1]+segheight*1.5f, paintLine );
+//        if(is_nmlk_on) paintLine.setColor(getResources().getColor(R.color.on_green));
+//        else paintLine.setColor(getResources().getColor(R.color.klr_123));
+//        canvas.drawText("123", seg_coords[7][0], seg_coords[7][1]+40, paintLine );
+//        canvas.drawText("123", seg_coords[8][0], seg_coords[8][1]+40, paintLine );
+//        paintLine.setColor(getResources().getColor(R.color.klr_123));paintLine.setTextSize(36f);paintLine.setTypeface(Typeface.DEFAULT_BOLD);
+//        canvas.drawText("8", seg_coords[1][0]+8, seg_coords[1][1]+seglen/2, paintLine );
+//        canvas.drawText("9", seg_coords[2][0]+8, seg_coords[2][1]+seglen/2, paintLine );
+//        canvas.drawText("L _", seg_coords[3][0]+seglen/2, seg_coords[3][1]+32, paintLine );
+//        canvas.drawText("J", seg_coords[4][0]+8, seg_coords[4][1]+seglen/2, paintLine );
+//        canvas.drawText("spc.Q", seg_coords[5][0]+8, seg_coords[5][1]+24, paintLine );
+//        canvas.drawText("W", seg_coords[6][0]+8, seg_coords[6][1]+seglen/2, paintLine );
+//        canvas.drawText("<- X", seg_coords[0][0]+8, seg_coords[0][1]+16, paintLine );
+//        canvas.drawText("1", seg_coords[1][0]+8, seg_coords[1][1]+seglen/2, paintLine );
+//        canvas.drawText("2", seg_coords[2][0]+8, seg_coords[2][1]+seglen/2, paintLine );
+//        canvas.drawText("3", seg_coords[3][0]+seglen/2, seg_coords[3][1]+32, paintLine );
+//        canvas.drawText("4", seg_coords[4][0]+8, seg_coords[4][1]+seglen/2, paintLine );
+//        canvas.drawText("5", seg_coords[5][0]+seglen/2, seg_coords[5][1]+32, paintLine );
+//        canvas.drawText("6", seg_coords[6][0]+8, seg_coords[6][1]+seglen/2, paintLine );
+//        canvas.drawText("7", seg_coords[0][0]+seglen/2, seg_coords[0][1]+24, paintLine );
+//        canvas.drawText("0", seg_coords[7][0]+segheight/2, seg_coords[7][1]+segheight*1.5f, paintLine );
+//        canvas.drawText("h", seg_coords[8][0], seg_coords[8][1]+segheight*1.5f, paintLine );
+    }
+    @Override public boolean onTouchEvent(MotionEvent me) {
+        final int action = me.getActionMasked();
+        int segno = -1 ;
+//        final int action = me.getAction();
+        switch (action & MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_DOWN: {
+                final float x = me.getX();final float y = me.getY();
+                segno = get_seg_no_ky(x,y);
+                if(prev_seg_no != segno) {
+                    seg2bytes = seg2bytes ^ (1 << segno);
+                    invalidate();
+                    if(segno >= 0) prev_seg_no = segno;
+                }
+                else {
+                    m88_lisnr.onText(seg2bytes);
+                    seg2bytes = 0x007F ; prev_seg_no = -1;
+                    invalidate();
+                }
+                break;
+            }
+            case MotionEvent.ACTION_POINTER_DOWN: {
+                final int pointerIndex = (action & MotionEvent.ACTION_POINTER_INDEX_MASK) >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
+                float x = me.getX(pointerIndex); float y = me.getY(pointerIndex);
+                segno = get_seg_no_ky(x, y); seg2bytes = seg2bytes ^ ( 1 << segno );invalidate();
+                break;
+            }
+//            case MotionEvent.ACTION_UP: {
+////                invalidate();
+////                m88_lisnr.onText(seg2bytes);
+////                seg2bytes = 0x807F ;
+//                break;
+//            }
+//            case MotionEvent.ACTION_MOVE: {
+////                m88_lisnr.onText(seg2bytes);
+////                seg2bytes = 0x007F ;
+////                invalidate();
+//                break;
+//            }
+//            case MotionEvent.ACTION_POINTER_UP: {
+////                seg2bytes = 0x807F ;
+////                invalidate();
+//                break;
+//            }
+        }
+        return true;
+    }
+    private int get_seg_no_ky(float Aks,float yai){
+        int seg_nmbr_clicked = -1;
+        for(int i=0; i<0x10; i++) {
+            if (Aks >= seg_coords[i][0] && Aks <= seg_coords[i][2] && yai >= seg_coords[i][1] && yai <= seg_coords[i][3])
+            { seg_nmbr_clicked = i; break; }
+        }
+//        else if(k >= seg_coords[9][0] && k <= seg_coords[9][2] && y >= seg_coords[9][1] && y <= seg_coords[9][3]) seg_nmbr_clicked = 9 ;
+//        else if(k >= seg_coords[1][0] && k <= seg_coords[1][2] && y >= seg_coords[1][1] && y <= seg_coords[1][3]) seg_nmbr_clicked = 1 ;
+//        else if(k >= seg_coords[0xA][0] && k <= seg_coords[0xA][2] && y >= seg_coords[0xA][1] && y <= seg_coords[0xA][3]) seg_nmbr_clicked = 0xA ;
+//        else if(k >= seg_coords[2][0] && k <= seg_coords[2][2] && y >= seg_coords[2][1] && y <= seg_coords[2][3]) seg_nmbr_clicked = 2 ;
+//        else if(k >= seg_coords[0xB][0] && k <= seg_coords[0xB][2] && y >= seg_coords[0xB][1] && y <= seg_coords[0xB][3]) seg_nmbr_clicked = 0xB ;
+//        else if(k >= seg_coords[3][0] && k <= seg_coords[3][2] && y >= seg_coords[3][1] && y <= seg_coords[3][3]) seg_nmbr_clicked = 3 ;
+//        else if(k >= seg_coords[0xC][0] && k <= seg_coords[0xC][2] && y >= seg_coords[0xC][1] && y <= seg_coords[0xC][3]) seg_nmbr_clicked = 0xC ;
+//        else if(k >= seg_coords[4][0] && k <= seg_coords[4][2] && y >= seg_coords[4][1] && y <= seg_coords[4][3]) seg_nmbr_clicked = 4 ;
+//        else if(k >= seg_coords[0xD][0] && k <= seg_coords[0xD][2] && y >= seg_coords[0xD][1] && y <= seg_coords[0xD][3]) seg_nmbr_clicked = 0xD ;
+//        else if(k >= seg_coords[5][0] && k <= seg_coords[5][2] && y >= seg_coords[5][1] && y <= seg_coords[5][3]) seg_nmbr_clicked = 5 ;
+//        else if(k >= seg_coords[0xE][0] && k <= seg_coords[0xE][2] && y >= seg_coords[0xE][1] && y <= seg_coords[0xE][3]) seg_nmbr_clicked = 0xE ;
+//        else if(k >= seg_coords[6][0] && k <= seg_coords[6][2] && y >= seg_coords[6][1] && y <= seg_coords[6][3]) seg_nmbr_clicked = 6 ;
+//        else if(k >= seg_coords[0xF][0] && k <= seg_coords[0xF][2] && y >= seg_coords[0xF][1] && y <= seg_coords[0xF][3]) seg_nmbr_clicked = 0xF ;
+        return seg_nmbr_clicked;
+    }
+    private void draw_seg2bytes(Canvas canvas) { //
+        int segno = 0;
+        for (segno = 0 ; segno < 0x10 ; segno++){
+//            if (8 > segno) { canvas.translate(seg_translatek,0); }
+            if (0<(seg2bytes & (1<<segno))) {paintLine.setColor(getResources().getColor(R.color.segcolor_on));}
+            else  {paintLine.setColor(getResources().getColor(R.color.segcolor_oph));}
+            switch (segno) {
+                case 0: canvas.drawRect(seg_coords[0][0], seg_coords[0][1], seg_coords[0][2], seg_coords[0][3], paintLine); break ;
+                case 1: canvas.drawRect(seg_coords[1][0], seg_coords[1][1], seg_coords[1][2], seg_coords[1][3], paintLine); break ;
+                case 2: canvas.drawRect(seg_coords[2][0], seg_coords[2][1], seg_coords[2][2], seg_coords[2][3], paintLine); break ;
+                case 3: canvas.drawRect(seg_coords[3][0], seg_coords[3][1], seg_coords[3][2], seg_coords[3][3], paintLine); break ;
+                case 4: canvas.drawRect(seg_coords[4][0], seg_coords[4][1], seg_coords[4][2], seg_coords[4][3], paintLine); break ;
+                case 5: canvas.drawRect(seg_coords[5][0], seg_coords[5][1], seg_coords[5][2], seg_coords[5][3], paintLine); break ;
+                case 6: canvas.drawRect(seg_coords[6][0], seg_coords[6][1], seg_coords[6][2], seg_coords[6][3], paintLine); break ;
+                case 7: canvas.drawRect(seg_coords[7][0], seg_coords[7][1], seg_coords[7][2], seg_coords[7][3], paintLine); break;
+                ///////
+                case 8: canvas.drawRect(seg_coords[8][0], seg_coords[8][1], seg_coords[8][2], seg_coords[8][3], paintLine); break ;
+                case 9: canvas.drawRect(seg_coords[9][0], seg_coords[9][1], seg_coords[9][2], seg_coords[9][3], paintLine); break ;
+                case 0xA: canvas.drawRect(seg_coords[0xA][0], seg_coords[0xA][1], seg_coords[0xA][2], seg_coords[0xA][3], paintLine); break ;
+                case 0xB: canvas.drawRect(seg_coords[0xB][0], seg_coords[0xB][1], seg_coords[0xB][2], seg_coords[0xB][3], paintLine); break ;
+                case 0xC: canvas.drawRect(seg_coords[0xC][0], seg_coords[0xC][1], seg_coords[0xC][2], seg_coords[0xC][3], paintLine); break ;
+                case 0xD: canvas.drawRect(seg_coords[0xD][0], seg_coords[0xD][1], seg_coords[0xD][2], seg_coords[0xD][3], paintLine); break ;
+                case 0xE: canvas.drawRect(seg_coords[0xE][0], seg_coords[0xE][1], seg_coords[0xE][2], seg_coords[0xE][3], paintLine); break ;
+                case 0xF: canvas.drawRect(seg_coords[0xF][0], seg_coords[0xF][1], seg_coords[0xF][2], seg_coords[0xF][3], paintLine); break;
+            }
+//            if (8 > segno) { canvas.translate(-seg_translatek,0); }
+        }
+    }
+    /////////////
+    public void setCtrlIndicator(boolean active) {  }
+    public void setAltIndicator(boolean active) {  }
+    public void setMetaIndicator(boolean active) {  }
+    public int getShiftState() {  return SHIFT_OFF; }
+    public boolean isShiftAll() {
+        int state = getShiftState();
+        if (LatinIME.g_mt88_settings.shiftLockModifiers) { return state == SHIFT_ON || state == SHIFT_LOCKED; }
+        else { return state == SHIFT_ON; }
+    }
+    public boolean setShiftState(int shiftState) {
+//        if (mKeyboard != null) { if (mKeyboard.setShiftState(shiftState)) { invalidateAllKeys(); return true; } }
+        return false;
+    }
+}

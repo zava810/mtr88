@@ -1,0 +1,8 @@
+<resources>
+
+    <style name="Widget.Theme.Multitouch_keypad.MyView" parent="">
+        <item name="android:background">@color/gray_600</item>
+        <item name="exampleColor">@color/light_blue_600</item>
+        <item name="android:fontFamily">@font/u5cdot</item>
+    </style>
+</resources>
