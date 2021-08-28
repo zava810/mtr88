@@ -142,18 +142,18 @@ public class LatinKeyboardView extends View  {
         canvas.drawText("esc", seg_coords[1][0], seg_coords[1][1]+font_size*3, paint);
         paint.setTextSize(56); paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
         canvas.drawText(" x ", seg_coords[3][0], seg_coords[3][1]+font_size*2.5f, paint);
-        canvas.drawText("~", seg_coords[2][0], seg_coords[2][1]+font_size*2.5f, paint);
         canvas.drawText("-", seg_coords[5][0], seg_coords[5][1]+font_size*2.5f, paint);
         paint.setTextSize(48);
         canvas.drawText("dot.", seg_coords[0][0], seg_coords[0][1]+font_size*2.5f, paint);
-        canvas.drawText("T", seg_coords[6][0], seg_coords[6][1]+font_size*3.5f, paint);
         canvas.drawText("D", seg_coords[4][0], seg_coords[4][1]+font_size*3, paint);
         canvas.drawText(" +", seg_coords[9][0], seg_coords[9][1]+font_size*3.5f, paint);
         canvas.drawText(" *", seg_coords[12][0], seg_coords[12][1]+font_size*3.5f, paint);
         canvas.drawText("?", seg_coords[8][0]+96, seg_coords[8][1]+font_size*1.5f, paint);
-        canvas.drawText("=", seg_coords[11][0]+90, seg_coords[11][1]+font_size*1.5f, paint);
         canvas.drawText("F", seg_coords[13][0]+90, seg_coords[13][1]+font_size*2, paint);
         paint.setTextSize(60);
+        canvas.drawText(" ,", seg_coords[2][0], seg_coords[2][1]+font_size*2, paint);
+        canvas.drawText(":", seg_coords[6][0], seg_coords[6][1]+font_size*3.5f, paint);
+        canvas.drawText("=", seg_coords[11][0]+90, seg_coords[11][1]+font_size*1.5f, paint);
         canvas.drawText(" ;", seg_coords[14][0], seg_coords[14][1]+font_size*3.5f, paint);
         paint.setTextSize(font_size);paint.setTypeface(typeface);
 
@@ -165,7 +165,7 @@ public class LatinKeyboardView extends View  {
         canvas.drawText("> >>", seg_coords[1][0], seg_coords[1][1]+font_size*2, paint);
         canvas.drawText("II", seg_coords[0][0]+90, seg_coords[0][1]+font_size, paint);
         canvas.drawText("KK", seg_coords[3][0]+90, seg_coords[3][1]+font_size, paint);
-        canvas.drawText("tAb", seg_coords[2][0], seg_coords[2][1]+font_size*3, paint);
+        canvas.drawText(" tAb", seg_coords[2][0], seg_coords[2][1]+font_size*3.5f, paint);
 
 
         paint.setColor(getResources().getColor(R.color.klr_minu));

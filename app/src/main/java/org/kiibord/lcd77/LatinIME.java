@@ -223,25 +223,25 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             }
         }
     }
-    public boolean onText(int argl88bytes) { ic = getCurrentInputConnection();if (ic == null) return true;
+    public boolean onText(int argl88bytes) { ic = getCurrentInputConnection(); if (ic == null) return true;
         ic.beginBatchEdit();isl88_up_pending = true;l88bytes = argl88bytes;  kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null;
 
         if (isl88_up_pending) toogle_handler(); //807F
 
-        if (isl88_up_pending) send_num(); // k2p = 1
+//        if (isl88_up_pending) send_num(); // k2p = 1
         if (isl88_up_pending) send_06();
         if (isl88_up_pending) send_8E();
-        if (isl88_up_pending) dot_8E();
+//        if (isl88_up_pending) dot_8E();
         if (isl88_up_pending) send_06_nsd23();
         if (isl88_up_pending) send_special();
-        if (isl88_up_pending && (l88bytes & 0x04FF) == 0x047F) send_sft8F();
+//        if (isl88_up_pending && (l88bytes & 0x04FF) == 0x047F) send_sft8F();
 
         if (isl88_up_pending && (l88bytes & 0x1C00) == 0x1C00) send_knt_alt_sft();
-        if (isl88_up_pending && (l88bytes & 0x1800) == 0x1800) send_knt_alt();
-        if (isl88_up_pending && (l88bytes & 0x1400) == 0x1400) send_knt_sft();
-        if (isl88_up_pending && (l88bytes & 0x0C00) == 0x0C00) send_alt_sft();
-        if (isl88_up_pending && (l88bytes & 0x1000) == 0x1000) send_knt();
-        if (isl88_up_pending && (l88bytes & 0x0800) == 0x0800) send_alt();
+        if (isl88_up_pending && (l88bytes & 0x1C00) == 0x1800) send_knt_alt();
+        if (isl88_up_pending && (l88bytes & 0x1C00) == 0x1400) send_knt_sft();
+        if (isl88_up_pending && (l88bytes & 0x1C00) == 0x0C00) send_alt_sft();
+        if (isl88_up_pending && (l88bytes & 0x1C00) == 0x1000) send_knt();
+        if (isl88_up_pending && (l88bytes & 0x1C00) == 0x0800) send_alt();
 
         if (isl88_up_pending && (l88bytes & 0x4000) == 0x4000) send_minu();
         if (isl88_up_pending && (l88bytes & 0x0100) == 0x0100) send_go();
@@ -255,6 +255,11 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
     public void send_special(){
         isl88_up_pending = false ; meta = 0 ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
         switch (l88bytes) {
+            case 0x02BF: send_y_commit_n = false; ksek = "_"; break;
+            case 0x03FF: send_y_commit_n = false; ksek = "_"; break;
+            case 0x437F: send_y_commit_n = false; ksek = "_"; break;
+            case 0x8C6F: send_y_commit_n = false; ksek = "~"; break;
+            case 0x9C7F: send_y_commit_n = false; ksek = "~"; break;
             case 0x0277: kk = KeyEvent.KEYCODE_PAGE_UP; break;
             case 0x027E: kk = KeyEvent.KEYCODE_PAGE_DOWN; break;
             case 0x023F: kk = KeyEvent.KEYCODE_MOVE_HOME; break;
@@ -309,7 +314,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0x047D: send_y_commit_n = false; ksek = "E"; break;
 
             case 0x007B:  kk = KeyEvent.KEYCODE_C; break;
-            case 0x00FB: send_y_commit_n = false; ksek = "~"; break;
+            case 0x00FB: kk = KeyEvent.KEYCODE_COMMA; break;
             case 0x807B:  kk = KeyEvent.KEYCODE_2; break;
             case 0x047B: send_y_commit_n = false; ksek = "C"; break;
 
@@ -329,7 +334,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0x045F: send_y_commit_n = false; ksek = "O"; break;
 
             case 0x003F:  kk = KeyEvent.KEYCODE_I; break;
-            case 0x00BF: send_y_commit_n = false; ksek = "T"; break;
+            case 0x00BF: send_y_commit_n = false; ksek = ":"; break;
             case 0x803F:  kk = KeyEvent.KEYCODE_6; break;
             case 0x043F: send_y_commit_n = false; ksek = "I"; break;
 
@@ -391,8 +396,8 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0x805E: kk = KeyEvent.KEYCODE_EQUALS; break;
             case 0x045E: send_y_commit_n = false; ksek = "M"; break;
 
-            case 0x005D: kk = KeyEvent.KEYCODE_L; break;
-            case 0x805D: send_y_commit_n = false; ksek = "[]"; break;
+            case 0x005D: kk = KeyEvent.KEYCODE_COMMA; break;
+            case 0x805D: kk = KeyEvent.KEYCODE_SEMICOLON; break;
             case 0x045D: send_y_commit_n = false; ksek = "L"; break;
             case 0x00DD: kk = KeyEvent.KEYCODE_COMMA; break;
 
@@ -413,12 +418,12 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
 
             case 0x003E: kk = KeyEvent.KEYCODE_Q; break;
             case 0x803E: send_y_commit_n = false; ksek = "Q"; break;
-            case 0x00BE: kk = KeyEvent.KEYCODE_COMMA; break;
+            case 0x00BE: send_y_commit_n = false; ksek = "_"; break;
             case 0x043E: send_y_commit_n = false; ksek = "Q"; break;
 
             case 0x003D: send_y_commit_n = false; ksek = "T"; break;
             case 0x803D: kk = KeyEvent.KEYCODE_PERIOD; break;
-            case 0x00BD: send_y_commit_n = false; ksek = "_"; break;
+            case 0x00BD: kk = KeyEvent.KEYCODE_EQUALS; break;
             case 0x043D: send_y_commit_n = false; ksek = "_"; break;
 
             case 0x003B: kk = KeyEvent.KEYCODE_S; break;
@@ -488,7 +493,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0x8065: kk = KeyEvent.KEYCODE_SEMICOLON; break;
             // case 0x00E5: kk = KeyEvent.KEYCODE_APOSTROPHE; break;
 
-            case 0x0063: kk = KeyEvent.KEYCODE_GRAVE; break;
+            case 0x0063: send_y_commit_n = false; ksek = "^"; break;
             case 0x8063: send_y_commit_n = false; ksek = "~"; break;
             case 0x00E3: send_y_commit_n = false; ksek = "~"; break;
             case 0x0463: send_y_commit_n = false; ksek = "~"; break;
@@ -518,7 +523,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0x00D5: send_y_commit_n = false; ksek = "%"; break;
             case 0x0455: send_y_commit_n = false; ksek = "%"; break;
 
-            case 0x0053: send_y_commit_n = false; ksek = "[]"; break;
+            case 0x0053: kk = KeyEvent.KEYCODE_APOSTROPHE; break;
             case 0x8053: send_y_commit_n = false; ksek = "{}"; break;
             case 0x00D3: send_y_commit_n = false; ksek = "{}"; break;
             case 0x0453: send_y_commit_n = false; ksek = "()"; break;
@@ -538,7 +543,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0x804B: send_y_commit_n = false; ksek = "~"; break;
             case 0x044B: send_y_commit_n = false; ksek = "W"; break;
 
-            case 0x0047: send_y_commit_n = false; ksek = "()"; break;
+            case 0x0047: kk = KeyEvent.KEYCODE_GRAVE; break;
             case 0x00C7: send_y_commit_n = false; ksek = "{}"; break;
             case 0x8047: send_y_commit_n = false; ksek = "[]"; break;
             case 0x0447: send_y_commit_n = false; ksek = "{}"; break;
@@ -643,7 +648,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
 	        // case 0x8062: isl88_up_pending = true; break;	
 	        // case 0x0462: isl88_up_pending = true; break;
 
-            case 0x0061: kk = KeyEvent.KEYCODE_COMMA; break;
+            case 0x0061: send_y_commit_n = false; ksek = "()"; break;
             // case 0x00E1: kk = KeyEvent.KEYCODE_COMMA; break;
 	        // case 0x8061: isl88_up_pending = true; break;	
 	        // case 0x0461: isl88_up_pending = true; break;
@@ -718,7 +723,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0x8031: isl88_up_pending = true; break;
            	// case 0x0431: isl88_up_pending = true; break;
 
-            case 0x002C: send_y_commit_n = false; ksek = "!"; break;
+            case 0x002C: send_y_commit_n = false; ksek = "()"; break;
             // case 0x00AC: send_y_commit_n = false; ksek = "!"; break;
             // case 0x802C: isl88_up_pending = true; break;
            	// case 0x042C: isl88_up_pending = true; break;
@@ -728,9 +733,9 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0x802A: isl88_up_pending = true; break;
            	// case 0x042A: isl88_up_pending = true; break;
 
-            case 0x0029: kk = KeyEvent.KEYCODE_L; break;
-            case 0x00A9: send_y_commit_n = false; ksek = "|"; break;
-            case 0x8029: kk = KeyEvent.KEYCODE_EQUALS; break;
+            case 0x0029: send_y_commit_n = false; ksek = "|"; break;
+//            case 0x00A9: send_y_commit_n = false; ksek = "|"; break;
+//            case 0x8029: kk = KeyEvent.KEYCODE_EQUALS; break;
             // case 0x0429: isl88_up_pending = true; break;
 
             case 0x0026: kk = KeyEvent.KEYCODE_C; break;
@@ -743,7 +748,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0x8025: isl88_up_pending = true; break;
             // case 0x0425: isl88_up_pending = true; break;
 
-            case 0x0023: kk = KeyEvent.KEYCODE_COMMA; break;
+            case 0x0023: send_y_commit_n = false; ksek = "()"; break;
             // case 0x00A3: kk = KeyEvent.KEYCODE_COMMA; break;
             // case 0x8023: isl88_up_pending = true; break;
            	// case 0x0423: isl88_up_pending = true; break;
@@ -906,7 +911,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
 //
 //            case 0x04E7: isl88_up_pending = true; break;
 //            case 0x80E7: isl88_up_pending = true; break;
-//            case 0x8467: isl88_up_pending = true; break;
+            case 0x8467: send_y_commit_n = false; ksek = "~"; break;
 //            case 0x84E7: isl88_up_pending = true; break;
 
 //            case 0x04DE: isl88_up_pending = true; break;
@@ -985,31 +990,38 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
         final int num88bytes ;
         if (mKeyboardSwitcher.is_nm_lok() && ((l88bytes & 0x0480) == 0)) {num88bytes =  l88bytes ^ 0x8000 ; } else { num88bytes =  l88bytes ; }
         switch (num88bytes) {
-            ///////
+            // ******************************************************* //
+            // send_8E  k2p = 0 keys from 8-E bilo + dot/num
+            // ******************************************************* //
             // send_8E : k2p=0,1
+            case 0x107F:  kk = KeyEvent.KEYCODE_PERIOD; break;
+            case 0x907F:  send_y_commit_n = false;ksek = "Q"; break;
+
             // case 0x007F: isl88_up_pending = true; break;
            	// case 0x00FF: isl88_up_pending = true; break;
             // case 0x807F: isl88_up_pending = true; break;
            	// case 0x80FF: isl88_up_pending = true; break;
 
-            case 0x017F: kk = KeyEvent.KEYCODE_ENTER; break;
-           	case 0x01FF: send_y_commit_n = false; ksek = "?"; break;
+            case 0x017F:  kk = KeyEvent.KEYCODE_ENTER; break;
+            case 0x817F:  kk = KeyEvent.KEYCODE_8; break;
+            case 0x01FF: send_y_commit_n = false; ksek = "?"; break;
             // case 0x817F: isl88_up_pending = true; break;
            	// case 0x81FF: isl88_up_pending = true; break;
 
-            case 0x027F: kk = KeyEvent.KEYCODE_TAB; break;
-           	case 0x02FF: send_y_commit_n = false; ksek = "+"; break;
+            case 0x027F:  kk = KeyEvent.KEYCODE_TAB; break;
+            case 0x827F:  kk = KeyEvent.KEYCODE_9; break;
+            case 0x02FF: send_y_commit_n = false; ksek = "+"; break;
             // case 0x827F: isl88_up_pending = true; break;
            	// case 0x82FF: isl88_up_pending = true; break;
 
-            case 0x047F: send_y_commit_n = false; ksek = "_" ; break;
-           	case 0x04FF: send_y_commit_n = false; ksek = "[]"; break;
-            // case 0x847F: isl88_up_pending = true; break;
+            case 0x047F: send_y_commit_n = false; ksek = "_"; break;
+            case 0x04FF: send_y_commit_n = false; ksek = "[]"; break;
+            case 0x847F: send_y_commit_n = false; ksek = "L"; break;
            	// case 0x84FF: isl88_up_pending = true; break;
 
-            case 0x087F: kk = KeyEvent.KEYCODE_DEL; break;
-           	case 0x08FF: kk = KeyEvent.KEYCODE_EQUALS; break;
-            // case 0x887F: isl88_up_pending = true; break;
+            case 0x087F:  kk = KeyEvent.KEYCODE_DEL; break;
+            case 0x08FF: kk = KeyEvent.KEYCODE_EQUALS; break;
+            case 0x887F:  send_y_commit_n = false;ksek = "J"; break;
            	// case 0x88FF: isl88_up_pending = true; break;
 
             // case 0x107F: isl88_up_pending = true; break;
@@ -1017,19 +1029,21 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0x907F: isl88_up_pending = true; break;
            	// case 0x90FF: isl88_up_pending = true; break;
 
-            case 0x207F: kk = KeyEvent.KEYCODE_SPACE; break;
-           	case 0x20FF: send_y_commit_n = false; ksek = "F"; break;
+            case 0x207F:  kk = KeyEvent.KEYCODE_FORWARD_DEL; break;
+            case 0x20FF: send_y_commit_n = false; ksek = "F"; break;
             case 0xA07F: send_y_commit_n = false; ksek = "W" ; break;
            	// case 0xA0FF: isl88_up_pending = true; break;
 
             case 0x407F: kk = KeyEvent.KEYCODE_PERIOD; break;
-           	case 0x40FF: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+//            case 0x407F:  send_y_commit_n = false;ksek = "#"; break;
+            case 0xC07F: send_y_commit_n = false;ksek = "X"; break;
+            case 0x40FF: kk = KeyEvent.KEYCODE_SEMICOLON; break;
             // case 0xC07F: isl88_up_pending = true; break;
            	// case 0xC0FF: isl88_up_pending = true; break;
 
             // send_8E : k2p=2
             case 0x037F: kk = KeyEvent.KEYCODE_COMMA; break;
-           	case 0x03FF: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+           	case 0x03FF: send_y_commit_n = false; ksek = "_"; break;
             // case 0x837F: isl88_up_pending = true; break;
            	// case 0x83FF: isl88_up_pending = true; break;
 
@@ -1184,7 +1198,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0x9C7F: isl88_up_pending = true; break;
            	// case 0x9CFF: isl88_up_pending = true; break;
 
-            case 0x237F: send_y_commit_n = false; ksek = ">" ; break;
+            case 0x237F: kk = KeyEvent.KEYCODE_COMMA; break;
            	// case 0x23FF: isl88_up_pending = true; break;
             // case 0xA37F: isl88_up_pending = true; break;
            	// case 0xA3FF: isl88_up_pending = true; break;
@@ -1284,7 +1298,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0xD87F: isl88_up_pending = true; break;
            	// case 0xD8FF: isl88_up_pending = true; break;
 
-            case 0x617F: send_y_commit_n = false; ksek = "<" ; break;
+            case 0x617F: kk = KeyEvent.KEYCODE_COMMA; break;
            	// case 0x61FF: isl88_up_pending = true; break;
             // case 0xE17F: isl88_up_pending = true; break;
            	// case 0xE1FF: isl88_up_pending = true; break;
@@ -1558,6 +1572,166 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
     }
 
     ////  ctl sft alt combinations
+    public void send_ka_s07(){
+        isl88_up_pending = false ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
+        int num88bytes ;
+        num88bytes = l88bytes & 0xE3FF;
+        if (mKeyboardSwitcher.is_nm_lok() && ((l88bytes & 0x0480) == 0)) {num88bytes =  num88bytes ^ 0x8000 ; }
+        switch (num88bytes) {
+            // ******************************************************* //
+            // send_ka_s07 yllo key k2p = 0 keys from 0-6 + sft/dot/num
+            // ******************************************************* //
+            case 0x00FF: kk = KeyEvent.KEYCODE_SPACE; break;
+            case 0x80FF:  kk = KeyEvent.KEYCODE_7; break;
+            // ******************************************************* //
+            // send_ka_s07 k2p = 1 keys from 0-6 bilo + sft/dot/num
+            // ******************************************************* //
+            case 0x00FE: kk = KeyEvent.KEYCODE_PERIOD; break;
+            case 0x807E:  kk = KeyEvent.KEYCODE_0; break;
+            case 0x007D:  kk = KeyEvent.KEYCODE_E; break;
+            case 0x00FD: kk = KeyEvent.KEYCODE_ESCAPE; break;
+            case 0x807D:  kk = KeyEvent.KEYCODE_1; break;
+            case 0x007B:  kk = KeyEvent.KEYCODE_C; break;
+            case 0x807B:  kk = KeyEvent.KEYCODE_2; break;
+            case 0x0077:  kk = KeyEvent.KEYCODE_U; break;
+            case 0x00F7: kk = KeyEvent.KEYCODE_X; break;
+            case 0x8077:  kk = KeyEvent.KEYCODE_3; break;
+            case 0x006F:  kk = KeyEvent.KEYCODE_A; break;
+            case 0x806F:  kk = KeyEvent.KEYCODE_4; break;
+            case 0x005F:  kk = KeyEvent.KEYCODE_O; break;
+            case 0x00DF: kk = KeyEvent.KEYCODE_MINUS; break;
+            case 0x805F:  kk = KeyEvent.KEYCODE_5; break;
+            case 0x003F:  kk = KeyEvent.KEYCODE_I; break;
+            case 0x803F:  kk = KeyEvent.KEYCODE_6; break;
+            // ******************************************************* //
+            // send_06 k2p = 2 keys from 0-6 bilo + sft/dot/num
+            // ******************************************************* //
+            case 0x007C: kk = KeyEvent.KEYCODE_P; break;
+            case 0x00FC: kk = KeyEvent.KEYCODE_COMMA; break;
+            case 0x007A: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x0076: kk = KeyEvent.KEYCODE_H; break;
+            case 0x8076: kk = KeyEvent.KEYCODE_EQUALS; break;
+            case 0x00F6: kk = KeyEvent.KEYCODE_EQUALS; break;
+            case 0x0075: kk = KeyEvent.KEYCODE_Y; break;
+            case 0x00F5: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x0073: kk = KeyEvent.KEYCODE_B; break;
+            case 0x8073: kk = KeyEvent.KEYCODE_GRAVE; break;
+            case 0x00F3: kk = KeyEvent.KEYCODE_GRAVE; break;
+            case 0x006D: kk = KeyEvent.KEYCODE_Z; break;
+            case 0x806B: kk = KeyEvent.KEYCODE_PERIOD; break;
+            case 0x046B: kk = KeyEvent.KEYCODE_PERIOD; break;
+            case 0x0067: kk = KeyEvent.KEYCODE_D; break;
+            case 0x8067: kk = KeyEvent.KEYCODE_APOSTROPHE; break;
+            case 0x00E7: kk = KeyEvent.KEYCODE_APOSTROPHE; break;
+            case 0x005E: kk = KeyEvent.KEYCODE_M; break;
+            case 0x805E: kk = KeyEvent.KEYCODE_EQUALS; break;
+            case 0x005D: kk = KeyEvent.KEYCODE_L; break;
+            case 0x00DD: kk = KeyEvent.KEYCODE_COMMA; break;
+            case 0x005B: kk = KeyEvent.KEYCODE_G; break;
+            case 0x00DB: kk = KeyEvent.KEYCODE_COMMA; break;
+            case 0x0057: kk = KeyEvent.KEYCODE_V; break;
+            case 0x8057: kk = KeyEvent.KEYCODE_EQUALS; break;
+            case 0x00D7: kk = KeyEvent.KEYCODE_EQUALS; break;
+            case 0x004F: kk = KeyEvent.KEYCODE_J; break;
+            case 0x00CF: kk = KeyEvent.KEYCODE_APOSTROPHE; break;
+            case 0x003E: kk = KeyEvent.KEYCODE_Q; break;
+            case 0x00BE: kk = KeyEvent.KEYCODE_COMMA; break;
+            case 0x803D: kk = KeyEvent.KEYCODE_PERIOD; break;
+            case 0x003B: kk = KeyEvent.KEYCODE_S; break;
+            case 0x803B: kk = KeyEvent.KEYCODE_MINUS; break;
+            case 0x0037: kk = KeyEvent.KEYCODE_Y; break;
+            case 0x001F: kk = KeyEvent.KEYCODE_R; break;
+            case 0x801F: kk = KeyEvent.KEYCODE_COMMA; break;
+            // ******************************************************* //
+            // send_06 k2p = 3 keys from 0-6 bilo + sft/dot/num
+            // ******************************************************* //
+            case 0x0078: kk = KeyEvent.KEYCODE_F; break;
+            case 0x0074: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x0072: kk = KeyEvent.KEYCODE_H; break;
+            case 0x0071: kk = KeyEvent.KEYCODE_T; break;
+            case 0x806C: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x00EC: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x046C: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x006A: kk = KeyEvent.KEYCODE_W; break;
+            case 0x0066: kk = KeyEvent.KEYCODE_EQUALS; break;
+            case 0x8066: kk = KeyEvent.KEYCODE_EQUALS; break;
+            // case 0x00E6: kk = KeyEvent.KEYCODE_EQUALS; break;
+            // case 0x00E5: isl88_up_pending = true; break;
+            case 0x0065: kk = KeyEvent.KEYCODE_APOSTROPHE; break;
+            case 0x8065: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            // case 0x00E5: kk = KeyEvent.KEYCODE_APOSTROPHE; break;
+            case 0x0063: kk = KeyEvent.KEYCODE_GRAVE; break;
+            case 0x005A: kk = KeyEvent.KEYCODE_SLASH; break;
+            case 0x0056: kk = KeyEvent.KEYCODE_L; break;
+            case 0x8056: kk = KeyEvent.KEYCODE_BACKSLASH; break;
+            case 0x0055: kk = KeyEvent.KEYCODE_BACKSLASH; break;
+            case 0x004E: kk = KeyEvent.KEYCODE_BACKSLASH; break;
+            case 0x004D: kk = KeyEvent.KEYCODE_BACKSLASH; break;
+            case 0x004B: kk = KeyEvent.KEYCODE_W; break;
+            case 0x003C: kk = KeyEvent.KEYCODE_PERIOD; break;
+            case 0x803C: kk = KeyEvent.KEYCODE_PERIOD; break;
+            case 0x00BA: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x803A: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x043A: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x00B9: kk = KeyEvent.KEYCODE_SLASH; break;
+            case 0x00B6: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x8036: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x0436: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x00B5: kk = KeyEvent.KEYCODE_W; break;
+            case 0x0435: kk = KeyEvent.KEYCODE_W; break;
+            case 0x0033: kk = KeyEvent.KEYCODE_GRAVE; break;
+            case 0x002E: kk = KeyEvent.KEYCODE_L; break;
+            case 0x002D: kk = KeyEvent.KEYCODE_BACKSLASH; break;
+            case 0x002B: kk = KeyEvent.KEYCODE_SLASH; break;
+            case 0x0027: kk = KeyEvent.KEYCODE_SLASH; break;
+            case 0x001D: kk = KeyEvent.KEYCODE_N; break;
+            case 0x001B: kk = KeyEvent.KEYCODE_SLASH; break;
+            case 0x0097: kk = KeyEvent.KEYCODE_COMMA; break;
+            case 0x8017: kk = KeyEvent.KEYCODE_COMMA; break;
+            case 0x0417: kk = KeyEvent.KEYCODE_COMMA; break;
+            case 0x000F: kk = KeyEvent.KEYCODE_K; break;
+            // ******************************************************* //
+            // send_06  k2p = 4 keys from 0-6 bilo + sft/dot/num
+            // ******************************************************* //
+            case 0x0068: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x0061: kk = KeyEvent.KEYCODE_COMMA; break;
+            case 0x0058: kk = KeyEvent.KEYCODE_APOSTROPHE; break;
+            case 0x0052: kk = KeyEvent.KEYCODE_SLASH; break;
+            case 0x0046: kk = KeyEvent.KEYCODE_BACKSLASH; break;
+            case 0x00C5: kk = KeyEvent.KEYCODE_PERIOD; break;
+            case 0x00C3: kk = KeyEvent.KEYCODE_PERIOD; break;
+            case 0x0031: kk = KeyEvent.KEYCODE_BACKSLASH; break;
+            case 0x002A: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            case 0x0029: kk = KeyEvent.KEYCODE_L; break;
+            case 0x8029: kk = KeyEvent.KEYCODE_EQUALS; break;
+            case 0x0026: kk = KeyEvent.KEYCODE_C; break;
+            case 0x0023: kk = KeyEvent.KEYCODE_COMMA; break;
+            case 0x001C: kk = KeyEvent.KEYCODE_MINUS; break;
+            case 0x0416: kk = KeyEvent.KEYCODE_RIGHT_BRACKET; break;
+            case 0x000E: kk = KeyEvent.KEYCODE_T; break;
+            case 0x0007: kk = KeyEvent.KEYCODE_F; break;
+            default: isl88_up_pending = true; break;
+        }
+        if(isl88_up_pending)
+        {
+            isl88_up_pending = false ;
+            switch (l88bytes & 0xFF00) {
+                case 0x7000: kk = KeyEvent.KEYCODE_K; break;
+                default: isl88_up_pending = true ; break ;
+            }
+        }
+        if(!isl88_up_pending) send_kk();
+    }
+    public void send_ka_s8f(){
+        isl88_up_pending = false ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
+        int num88bytes ;
+        num88bytes = l88bytes & 0xE3FF;
+        if (mKeyboardSwitcher.is_nm_lok() && ((l88bytes & 0x0480) == 0)) {num88bytes =  num88bytes ^ 0x8000 ; }
+        switch (num88bytes) {
+            default: isl88_up_pending = true; break;
+        }
+        if(!isl88_up_pending) send_kk();
+    }
     public void send_knt(){
         meta = KeyEvent.META_CTRL_ON ;  kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
         if(isl88_up_pending) { send_ka_s07(); }
@@ -1679,74 +1853,6 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             }
             if(!isl88_up_pending) send_kk();
         }
-    }
-    public void send_ka_s07(){
-        isl88_up_pending = false ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
-        switch (l88bytes & 0x00FF) {
-            case 0x007E: if (mKeyboardSwitcher.is_nm_lok()) { kk = KeyEvent.KEYCODE_0; } else { kk = KeyEvent.KEYCODE_A; } break;
-            case 0x007B: if (mKeyboardSwitcher.is_nm_lok()) { kk = KeyEvent.KEYCODE_2; } else { kk = KeyEvent.KEYCODE_C; } break;
-            case 0x0077: if (mKeyboardSwitcher.is_nm_lok()) { kk = KeyEvent.KEYCODE_3; } else { kk = KeyEvent.KEYCODE_U; } break;
-            case 0x006F: if (mKeyboardSwitcher.is_nm_lok()) { kk = KeyEvent.KEYCODE_4; } else { kk = KeyEvent.KEYCODE_A; } break;
-            case 0x005F: if (mKeyboardSwitcher.is_nm_lok()) { kk = KeyEvent.KEYCODE_5; } else { kk = KeyEvent.KEYCODE_O; } break;
-            case 0x003F: if (mKeyboardSwitcher.is_nm_lok()) { kk = KeyEvent.KEYCODE_6; } else { kk = KeyEvent.KEYCODE_I; } break;
-// case 0x047F: if (mKeyboardSwitcher.is_nm_lok()) { kk = KeyEvent.KEYCODE_L; } else { kk = KeyEvent.KEYCODE_MINUS; } break;
-            case 0x0073: kk = KeyEvent.KEYCODE_B; break;
-            case 0x0059: kk = KeyEvent.KEYCODE_C; break;
-            case 0x0067: kk = KeyEvent.KEYCODE_D; break;
-            case 0x0078: kk = KeyEvent.KEYCODE_F; break;
-            case 0x005B: kk = KeyEvent.KEYCODE_G; break;
-            case 0x004F: kk = KeyEvent.KEYCODE_J; break;
-            case 0x000F: case 0x0070: kk = KeyEvent.KEYCODE_K; break;
-            case 0x005E: kk = KeyEvent.KEYCODE_M; break;
-            case 0x001D: kk = KeyEvent.KEYCODE_N; break;
-            case 0x007C: kk = KeyEvent.KEYCODE_P; break;
-            case 0x003E: kk = KeyEvent.KEYCODE_Q; break;
-            case 0x001F: kk = KeyEvent.KEYCODE_R; break;
-            case 0x003B: kk = KeyEvent.KEYCODE_S; break;
-            case 0x0057: kk = KeyEvent.KEYCODE_V; break;
-            case 0x003C: kk = KeyEvent.KEYCODE_W; break;
-            case 0x0037: kk = KeyEvent.KEYCODE_Y; break;
-            case 0x006D: kk = KeyEvent.KEYCODE_Z; break;
-// case 0x001B: ic.commitText("/", 1); break;
-// case 0x006E: case 0x00F1: ic.commitText("T", 1); break;
-// case 0x00E7:  ic.commitText("D", 1); break;
-// case 0x006A: case 0x0075: ic.commitText("n", 1); break;
-// case 0x0062:case 0x00E3: case 0x00F5:case 0x009E: ic.commitText("N", 1); break;
-// case 0x00BE: ic.commitText("K", 1); break;
-// case 0x00ED: ic.commitText("R", 1); break;
-// case 0x0043: ic.commitText("u", 1); break;
-// case 0x0063: ic.commitText("o", 1); break;
-// case 0x0071: ic.commitText("t", 1); break;
-// case 0x00BB: ic.commitText("$", 1); break;
-// case 0x005D: case 0x5100: ic.commitText("l", 1); break;
-// case 0x0072: ic.commitText("h", 1); break;
-// case 0x00FD: ic.commitText("\n", 1); break;
-            default: isl88_up_pending = true ; break ;
-        }
-        if(isl88_up_pending)
-        {
-            isl88_up_pending = false ;
-            switch (l88bytes & 0xFF00) {
-                case 0x7000: kk = KeyEvent.KEYCODE_K; break;
-                default: isl88_up_pending = true ; break ;
-            }
-        }
-        if(!isl88_up_pending) send_kk();
-    }
-    public void send_ka_s8f(){
-        isl88_up_pending = false ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
-        switch (l88bytes & 0xFF00) {
-            default: isl88_up_pending = true ; break ;
-        }
-        if(isl88_up_pending)
-        {
-            isl88_up_pending = false ;
-            switch (l88bytes & 0xFF00) {
-                case 0x7000: kk = KeyEvent.KEYCODE_K; break;
-                default: isl88_up_pending = true ; break ;
-            }
-        }
-        if(!isl88_up_pending) send_kk();
     }
 
     ////  menu minu go muv fn
