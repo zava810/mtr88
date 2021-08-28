@@ -152,7 +152,7 @@ public class LatinKeyboardView extends View  {
         canvas.drawText("F", seg_coords[13][0]+90, seg_coords[13][1]+font_size*2, paint);
         paint.setTextSize(60);
         canvas.drawText(" ,", seg_coords[2][0], seg_coords[2][1]+font_size*2, paint);
-        canvas.drawText(":", seg_coords[6][0], seg_coords[6][1]+font_size*3.5f, paint);
+        canvas.drawText(" :", seg_coords[6][0], seg_coords[6][1]+font_size*3.5f, paint);
         canvas.drawText("=", seg_coords[11][0]+90, seg_coords[11][1]+font_size*1.5f, paint);
         canvas.drawText(" ;", seg_coords[14][0], seg_coords[14][1]+font_size*3.5f, paint);
         paint.setTextSize(font_size);paint.setTypeface(typeface);
