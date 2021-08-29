@@ -134,7 +134,7 @@ public class LatinKeyboardView extends View  {
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 //        paint.setColor(getResources().getColor(R.color.klr_star_mul));
         paint.setColor(Color.rgb(0x00,0x00,0x00));
-        canvas.drawText("*;-[", seg_coords[7][0], seg_coords[7][1]+font_size*3, paint);
+        canvas.drawText("*;-|", seg_coords[7][0], seg_coords[7][1]+font_size*3, paint);
         paint.setTextSize(font_size);paint.setTypeface(typeface);
 
         // dot combo teksts
@@ -186,7 +186,7 @@ public class LatinKeyboardView extends View  {
         }
         paint.setColor(Color.rgb(0x00,0x00,0x00));
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-        canvas.drawText("+= |({", seg_coords[0xF][0], seg_coords[0xF][1]+font_size*2.5f, paint);
+        canvas.drawText("+= ( {", seg_coords[0xF][0], seg_coords[0xF][1]+font_size*2.5f, paint);
 
 
         if(is_nmlk_on) paint.setColor(getResources().getColor(R.color.klr_123_on));
