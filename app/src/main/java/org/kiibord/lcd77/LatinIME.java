@@ -1582,6 +1582,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
 
     ////  ctl alt must1 combinations +/or sft
     public void kas_06(int arg_kas88bytes){
+        isl88_up_pending = false;
         switch (arg_kas88bytes) {
             // ******************************************************* //
             // send_06 yllo key k2p = 0 keys from 0-6 + sft/dot/num
@@ -2102,6 +2103,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
         if(!isl88_up_pending) send_kk();
     }
     public void kas_06_nsd23(int arg_kas88bytes){
+        isl88_up_pending = false;
         switch (arg_kas88bytes) {
             // ******************************************************* //
             // send_06_nsd23  k2p = 0 keys from 0-6 bilo + sft/dot/num
@@ -2276,6 +2278,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
         if(!isl88_up_pending) send_kk();
     }
     public void kas_8E(int arg_kas88bytes){
+        isl88_up_pending = false;
         switch (arg_kas88bytes) {
             // ******************************************************* //
             // send_8E  k2p = 0 keys from 8-E bilo + dot/num
@@ -2791,6 +2794,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
         if(!isl88_up_pending) send_kk();
     }
     public void kas_go(int arg_kas88bytes){
+        isl88_up_pending = false;
         switch (arg_kas88bytes) {
             case 0x0177: kk = KeyEvent.KEYCODE_DPAD_UP; break;
             case 0x017E: kk = KeyEvent.KEYCODE_DPAD_DOWN; break;
@@ -2810,6 +2814,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
         }
     }
     public void kas_muv(int arg_kas88bytes){
+        isl88_up_pending = false;
         switch (arg_kas88bytes) {
             case 0x0277: kk = KeyEvent.KEYCODE_PAGE_UP; break;
             case 0x027E: kk = KeyEvent.KEYCODE_PAGE_DOWN; break;
@@ -2829,10 +2834,10 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             if ((l88bytes & 0x1000) == 0x1000) meta = meta | KeyEvent.META_CTRL_ON;
             if ((l88bytes & 0x0800) == 0x0800) meta = meta | KeyEvent.META_ALT_ON;
             if ((l88bytes & 0x0400) == 0x0400) meta = meta | KeyEvent.META_SHIFT_ON;
-            isl88_up_pending = false ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
+            kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
             int num88bytes ;
             num88bytes = l88bytes & 0xE3FF;
-            if (mKeyboardSwitcher.is_nm_lok() && ((l88bytes & 0x0480) == 0)) {num88bytes =  num88bytes ^ 0x8000 ; }
+            if (mKeyboardSwitcher.is_nm_lok() && ((num88bytes & 0x0480) == 0)) {num88bytes =  num88bytes ^ 0x8000 ; }
             if(isl88_up_pending) kas_06(num88bytes);
             if(isl88_up_pending) kas_06_nsd23(num88bytes);
             if(isl88_up_pending) kas_8E(num88bytes);
