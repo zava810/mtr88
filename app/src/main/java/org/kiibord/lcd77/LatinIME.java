@@ -362,9 +362,10 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0x00E7: kk = KeyEvent.KEYCODE_APOSTROPHE; break;
             case 0x0467: send_y_commit_n = false; ksek = "D"; break;
 
-            case 0x005E: kk = KeyEvent.KEYCODE_M; break;
+
+            case 0x005E: kk = KeyEvent.KEYCODE_EQUALS; break;
             case 0x00DE: send_y_commit_n = false; ksek = "*"; break;
-            case 0x805E: kk = KeyEvent.KEYCODE_EQUALS; break;
+            case 0x805E: kk = KeyEvent.KEYCODE_MINUS; break;
             case 0x045E: send_y_commit_n = false; ksek = "M"; break;
 
             case 0x005D: kk = KeyEvent.KEYCODE_COMMA; break;
@@ -1689,9 +1690,9 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0x0467: send_y_commit_n = false; ksek = "D"; break;
 
             case 0x005E: kk = KeyEvent.KEYCODE_EQUALS; break;
-            // case 0x00DE: send_y_commit_n = false; ksek = ":"; break;
-            // case 0x805E: send_y_commit_n = false; ksek = ":"; break;
-            // case 0x045E: send_y_commit_n = false; ksek = "M"; break;
+//            case 0x00DE: send_y_commit_n = false; ksek = "*"; break;
+            case 0x805E: kk = KeyEvent.KEYCODE_MINUS; break;
+//            case 0x045E: send_y_commit_n = false; ksek = "M"; break;
 
             case 0x005D: kk = KeyEvent.KEYCODE_COMMA; break;
             case 0x805D: kk = KeyEvent.KEYCODE_SEMICOLON; break;
