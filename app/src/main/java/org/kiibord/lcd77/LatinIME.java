@@ -469,7 +469,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0x0063: kk = KeyEvent.KEYCODE_M; break;
             case 0x8063: send_y_commit_n = false; ksek = "~"; break;
             case 0x00E3: send_y_commit_n = false; ksek = "^"; break;
-            case 0x0463: send_y_commit_n = false; ksek = "~"; break;
+            case 0x0463: send_y_commit_n = false; ksek = "M"; break;
 
             case 0x005C: kk = KeyEvent.KEYCODE_COMMA; break;
             case 0x805C: send_y_commit_n = false; ksek = "()"; break;
@@ -1793,7 +1793,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0x0063: kk = KeyEvent.KEYCODE_M; break;
             // case 0x8063: send_y_commit_n = false; ksek = "~"; break;
             // case 0x00E3: send_y_commit_n = false; ksek = "^"; break;
-            // case 0x0463: send_y_commit_n = false; ksek = "~"; break;
+            // case 0x0463: send_y_commit_n = false; ksek = "M"; break;
 
             case 0x005C: kk = KeyEvent.KEYCODE_COMMA; break;
             // case 0x805C: send_y_commit_n = false; ksek = "()"; break;

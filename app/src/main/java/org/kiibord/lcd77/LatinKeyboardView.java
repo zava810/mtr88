@@ -176,7 +176,7 @@ public class LatinKeyboardView extends View  {
 
         font_size = 32; paint.setTextSize(font_size);
         paint.setColor(klr_num_rect_oph);
-        String hex_dizits[] = new String[]{"A0&"," e1E"," c2C","u3U","a4@","o5O"," i6i","spc7","ent8","tAb9"," -L","B-J","dotQ","-PW","#X"} ;
+        String hex_dizits[] = new String[]{"A0&"," e1E"," c2C","u3U","a4@","o5O"," i6i","spc7","ent8","tAb9"," --L","B-J","dotQ","-PW","#X"} ;
         for (int i=0;i<7;i++)canvas.drawText(hex_dizits[i], seg_coords[i][0], seg_coords[i][1]+font_size, paint);
         paint.setColor(Color.rgb(0x00,0x00,0x00));
         paint.setTextSize(32);
