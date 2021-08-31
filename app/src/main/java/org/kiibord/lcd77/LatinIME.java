@@ -219,6 +219,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             isl88_up_pending = false;
             switch (l88bytes) {
                 case 0x807F: mKeyboardSwitcher.toggle_nmlok(); break;
+                case 0x447F: mKeyboardSwitcher.toggle_sft_lok(); break;
                 default: isl88_up_pending = true ;
             }
         }
@@ -259,8 +260,9 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
     }
     public void send_06(){
         isl88_up_pending = false ; meta = 0 ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
-        final int num88bytes ;
-        if (mKeyboardSwitcher.is_nm_lok() && ((l88bytes & 0x0480) == 0)) {num88bytes =  l88bytes ^ 0x8000 ; } else { num88bytes =  l88bytes ; }
+        int num88bytes =  l88bytes;
+        if ( mKeyboardSwitcher.is_nm_lok() && ((num88bytes & 0x0480) == 0)) {num88bytes =  num88bytes ^ 0x8000 ; }
+        if (mKeyboardSwitcher.is_sft_lok() && ((num88bytes & 0x8080) == 0)) {num88bytes =  num88bytes ^ 0x0400 ; }
         switch (num88bytes) {
             // ******************************************************* //
             // send_06 yllo key k2p = 0 keys from 0-6 + sft/dot/num
@@ -783,7 +785,10 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
     }
     public void send_06_nsd23(){
         isl88_up_pending = false ; meta = 0 ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
-        switch (l88bytes) {
+        int num88bytes =  l88bytes;
+        if ( mKeyboardSwitcher.is_nm_lok() && ((num88bytes & 0x0480) == 0)) {num88bytes =  num88bytes ^ 0x8000 ; }
+        if (mKeyboardSwitcher.is_sft_lok() && ((num88bytes & 0x8080) == 0)) {num88bytes =  num88bytes ^ 0x0400 ; }
+        switch (num88bytes) {
             // ******************************************************* //
             // send_06_nsd23  k2p = 0 keys from 0-6 bilo + sft/dot/num
             // ******************************************************* //
@@ -960,8 +965,11 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
     // /// 8E sending bilo
     public void send_8E(){
         isl88_up_pending = false ; meta = 0 ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
-        final int num88bytes ;
-        if (mKeyboardSwitcher.is_nm_lok() && ((l88bytes & 0x0480) == 0)) {num88bytes =  l88bytes ^ 0x8000 ; } else { num88bytes =  l88bytes ; }
+//        final int num88bytes ;
+//        if (mKeyboardSwitcher.is_nm_lok() && ((l88bytes & 0x0480) == 0)) {num88bytes =  l88bytes ^ 0x8000 ; } else { num88bytes =  l88bytes ; }
+        int num88bytes =  l88bytes;
+        if ( mKeyboardSwitcher.is_nm_lok() && ((num88bytes & 0x0480) == 0)) {num88bytes =  num88bytes ^ 0x8000 ; }
+        if (mKeyboardSwitcher.is_sft_lok() && ((num88bytes & 0x8080) == 0)) {num88bytes =  num88bytes ^ 0x0400 ; }
         switch (num88bytes) {
             // ******************************************************* //
             // send_8E  k2p = 0 keys from 8-E bilo + dot/num
@@ -978,8 +986,12 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0x017F:  kk = KeyEvent.KEYCODE_ENTER; break;
             case 0x817F:  kk = KeyEvent.KEYCODE_8; break;
             case 0x01FF: send_y_commit_n = false; ksek = "?"; break;
+            case 0x05FF: send_y_commit_n = false; ksek = "?"; break;
             // case 0x817F: isl88_up_pending = true; break;
            	// case 0x81FF: isl88_up_pending = true; break;
+             case 0x057F: send_y_commit_n = false; ksek = ":"; break;
+            // case 0x857F: isl88_up_pending = true; break;
+            // case 0x85FF: isl88_up_pending = true; break;
 
             case 0x027F:  kk = KeyEvent.KEYCODE_TAB; break;
             case 0x827F:  kk = KeyEvent.KEYCODE_9; break;
@@ -999,8 +1011,12 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
 
             // case 0x107F: isl88_up_pending = true; break;
            	case 0x10FF: send_y_commit_n = false; ksek = "*"; break;
+           	case 0x14FF: send_y_commit_n = false; ksek = "*"; break;
             // case 0x907F: isl88_up_pending = true; break;
            	// case 0x90FF: isl88_up_pending = true; break;
+            case 0x147F: send_y_commit_n = false; ksek = "\"\"" ; break;
+            // case 0x947F: isl88_up_pending = true; break;
+            // case 0x94FF: isl88_up_pending = true; break;
 
             case 0x207F:  kk = KeyEvent.KEYCODE_FORWARD_DEL; break;
             case 0x20FF: send_y_commit_n = false; ksek = "F"; break;
@@ -1011,6 +1027,10 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0xC07F: send_y_commit_n = false;ksek = "X"; break;
             case 0x40FF: send_y_commit_n = false; ksek = "|"; break;
             case 0xC0FF: kk = KeyEvent.KEYCODE_SEMICOLON; break;
+            // case 0x447F: isl88_up_pending = true; break;
+            case 0x44FF: send_y_commit_n = false; ksek = "|"; break;
+            // case 0xC47F: isl88_up_pending = true; break;
+            // case 0xC4FF: isl88_up_pending = true; break;
 
             // send_8E : k2p=2
             case 0x037F: kk = KeyEvent.KEYCODE_COMMA; break;
@@ -1018,10 +1038,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0x837F: isl88_up_pending = true; break;
            	// case 0x83FF: isl88_up_pending = true; break;
 
-            // case 0x057F: isl88_up_pending = true; break;
-           	case 0x05FF: send_y_commit_n = false; ksek = ":"; break;
-            // case 0x857F: isl88_up_pending = true; break;
-           	// case 0x85FF: isl88_up_pending = true; break;
+
 
             // case 0x067F: isl88_up_pending = true; break;
            	case 0x06FF: kk = KeyEvent.KEYCODE_L; break;
@@ -1052,11 +1069,6 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
            	case 0x12FF: send_y_commit_n = false; ksek = "%"; break;
             // case 0x927F: isl88_up_pending = true; break;
            	// case 0x92FF: isl88_up_pending = true; break;
-
-            case 0x147F: send_y_commit_n = false; ksek = "\"\"" ; break;
-           	case 0x14FF: send_y_commit_n = false; ksek = "|"; break;
-            // case 0x947F: isl88_up_pending = true; break;
-           	// case 0x94FF: isl88_up_pending = true; break;
 
             case 0x187F: kk = KeyEvent.KEYCODE_APOSTROPHE; break;
            	case 0x18FF: kk = KeyEvent.KEYCODE_SEMICOLON; break;
@@ -1098,10 +1110,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0xC27F: isl88_up_pending = true; break;
            	// case 0xC2FF: isl88_up_pending = true; break;
 
-            // case 0x447F: isl88_up_pending = true; break;
-           	// case 0x44FF: isl88_up_pending = true; break;
-            // case 0xC47F: isl88_up_pending = true; break;
-           	// case 0xC4FF: isl88_up_pending = true; break;
+
 
             // case 0x487F: isl88_up_pending = true; break;
            	// case 0x48FF: isl88_up_pending = true; break;
@@ -1487,23 +1496,26 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
     }
     public void send_go(){
         isl88_up_pending = false ; meta = 0 ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null ; send_y_commit_n = true;
-        switch (l88bytes) {
+        int num88bytes =  l88bytes;
+        if ( mKeyboardSwitcher.is_nm_lok() && ((num88bytes & 0x0480) == 0)) {num88bytes =  num88bytes ^ 0x8000 ; }
+        if (mKeyboardSwitcher.is_sft_lok() && ((num88bytes & 0x8080) == 0)) {num88bytes =  num88bytes ^ 0x0400 ; }
+        switch (num88bytes) {
             case 0x0177: kk = KeyEvent.KEYCODE_DPAD_UP; break;
             case 0x017E: kk = KeyEvent.KEYCODE_DPAD_DOWN; break;
             case 0x013F: kk = KeyEvent.KEYCODE_DPAD_LEFT; break;
             case 0x017D: kk = KeyEvent.KEYCODE_DPAD_RIGHT; break;
             case 0x097B: kk = KeyEvent.KEYCODE_TAB; meta = KeyEvent.META_ALT_ON ;break;
             case 0x0A7B: kk = KeyEvent.KEYCODE_TAB; meta = KeyEvent.META_ALT_ON ;break;
-            case 0x067B: kk = KeyEvent.KEYCODE_TAB; meta = KeyEvent.META_SHIFT_ON ;break;
-            case 0x057B: kk = KeyEvent.KEYCODE_TAB; meta = KeyEvent.META_SHIFT_ON ;break;
             case 0x027B: kk = KeyEvent.KEYCODE_TAB; break;
             case 0x017B: kk = KeyEvent.KEYCODE_TAB; break;
             default: isl88_up_pending = true ; break ;
         }
         if(isl88_up_pending) {
             isl88_up_pending = false ;
-            meta = KeyEvent.META_SHIFT_ON ;
-            switch (l88bytes) {
+            meta = meta | KeyEvent.META_SHIFT_ON ;
+            switch (num88bytes) {
+                case 0x067B: kk = KeyEvent.KEYCODE_TAB; break;
+                case 0x057B: kk = KeyEvent.KEYCODE_TAB; break;
                 case 0x0577: kk = KeyEvent.KEYCODE_DPAD_UP; break;
                 case 0x057E: kk = KeyEvent.KEYCODE_DPAD_DOWN; break;
                 case 0x053F: kk = KeyEvent.KEYCODE_DPAD_LEFT; break;
@@ -1516,7 +1528,10 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
     }
     public void send_muv(){
         isl88_up_pending = false ; meta = 0 ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null ; send_y_commit_n = true;
-        switch (l88bytes) {
+        int num88bytes =  l88bytes;
+        if ( mKeyboardSwitcher.is_nm_lok() && ((num88bytes & 0x0480) == 0)) {num88bytes =  num88bytes ^ 0x8000 ; }
+        if (mKeyboardSwitcher.is_sft_lok() && ((num88bytes & 0x8080) == 0)) {num88bytes =  num88bytes ^ 0x0400 ; }
+        switch (num88bytes) {
             case 0x0277: kk = KeyEvent.KEYCODE_PAGE_UP; break;
             case 0x027E: kk = KeyEvent.KEYCODE_PAGE_DOWN; break;
             case 0x023F: kk = KeyEvent.KEYCODE_MOVE_HOME; break; //96
@@ -1528,7 +1543,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
         if(isl88_up_pending) {
             isl88_up_pending = false ;
             meta = meta | KeyEvent.META_SHIFT_ON ;
-            switch (l88bytes) {
+            switch (num88bytes) {
                 case 0x0677: kk = KeyEvent.KEYCODE_PAGE_UP; break;
                 case 0x067E: kk = KeyEvent.KEYCODE_PAGE_DOWN; break;
                 case 0x063F: kk = KeyEvent.KEYCODE_MOVE_HOME; break; //96
@@ -1588,7 +1603,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
         isl88_up_pending = false;
         switch (arg_kas88bytes) {
             // ******************************************************* //
-            // send_06 yllo key k2p = 0 keys from 0-6 + sft/dot/num
+            // kas_06 yllo key k2p = 0 keys from 0-6 + sft/dot/num
             // ******************************************************* //
             // case 0x007F: isl88_up_pending = true; break;
             // case 0x00FF: kk = KeyEvent.KEYCODE_SPACE; break;
@@ -1598,7 +1613,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0x04FF:  kk = KeyEvent.KEYCODE_LEFT_BRACKET; break;
 
             // ******************************************************* //
-            // send_06 k2p = 1 keys from 0-6 bilo + sft/dot/num
+            // kas_06 k2p = 1 keys from 0-6 bilo + sft/dot/num
             // ******************************************************* //
             case 0x007E:  kk = KeyEvent.KEYCODE_A; break;
             // case 0x00FE: kk = KeyEvent.KEYCODE_PERIOD; break;
@@ -1616,7 +1631,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0x047B: send_y_commit_n = false; ksek = "C"; break;
 
             case 0x0077:  kk = KeyEvent.KEYCODE_U; break;
-            // case 0x00F7: kk = KeyEvent.KEYCODE_X; break;
+            case 0x00F7: kk = KeyEvent.KEYCODE_X; break;
             case 0x8077:  kk = KeyEvent.KEYCODE_3; break;
             // case 0x0477: send_y_commit_n = false; ksek = "U"; break;
 
@@ -2831,14 +2846,18 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
         }
     }
     public void send_knt_alt_sft(){
-        if (isl88_up_pending && (l88bytes & 0x1C00) > 0x0400) {
+        int num88bytes =  l88bytes;
+        if ( mKeyboardSwitcher.is_nm_lok() && ((num88bytes & 0x0480) == 0)) {num88bytes =  num88bytes ^ 0x8000 ; }
+        if (mKeyboardSwitcher.is_sft_lok() && ((num88bytes & 0x8080) == 0)) {num88bytes =  num88bytes ^ 0x0400 ; }
+//        if (isl88_up_pending && (l88bytes & 0x1C00) > 0x0400) {
+        if (isl88_up_pending && (num88bytes & 0x1800) > 0) {
             if ((l88bytes & 0x1000) == 0x1000) meta = meta | KeyEvent.META_CTRL_ON;
             if ((l88bytes & 0x0800) == 0x0800) meta = meta | KeyEvent.META_ALT_ON;
             if ((l88bytes & 0x0400) == 0x0400) meta = meta | KeyEvent.META_SHIFT_ON;
             kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
-            int num88bytes ;
+//            int num88bytes ;
             num88bytes = l88bytes & 0xE3FF;
-            if (mKeyboardSwitcher.is_nm_lok() && ((num88bytes & 0x0480) == 0)) {num88bytes =  num88bytes ^ 0x8000 ; }
+//            if (mKeyboardSwitcher.is_nm_lok() && ((num88bytes & 0x0480) == 0)) {num88bytes =  num88bytes ^ 0x8000 ; }
             if(isl88_up_pending) kas_06(num88bytes);
             if(isl88_up_pending) kas_06_nsd23(num88bytes);
             if(isl88_up_pending) kas_8E(num88bytes);
@@ -2846,6 +2865,22 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             if(isl88_up_pending) kas_muv(num88bytes);
         } else { isl88_up_pending = true; }
     }
+//    public void send_knt_alt_sft(){
+//        if (isl88_up_pending && (l88bytes & 0x1C00) > 0x0400) {
+//            if ((l88bytes & 0x1000) == 0x1000) meta = meta | KeyEvent.META_CTRL_ON;
+//            if ((l88bytes & 0x0800) == 0x0800) meta = meta | KeyEvent.META_ALT_ON;
+//            if ((l88bytes & 0x0400) == 0x0400) meta = meta | KeyEvent.META_SHIFT_ON;
+//            kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
+//            int num88bytes ;
+//            num88bytes = l88bytes & 0xE3FF;
+//            if (mKeyboardSwitcher.is_nm_lok() && ((num88bytes & 0x0480) == 0)) {num88bytes =  num88bytes ^ 0x8000 ; }
+//            if(isl88_up_pending) kas_06(num88bytes);
+//            if(isl88_up_pending) kas_06_nsd23(num88bytes);
+//            if(isl88_up_pending) kas_8E(num88bytes);
+//            if(isl88_up_pending) kas_go(num88bytes);
+//            if(isl88_up_pending) kas_muv(num88bytes);
+//        } else { isl88_up_pending = true; }
+//    }
 
     private static final Pattern NUMBER_RE = Pattern.compile("(\\d+).*");
     static int getHeight(SharedPreferences prefs, String prefName, String defVal) {

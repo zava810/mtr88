@@ -108,4 +108,5 @@ public class KeyboardSwitcher {
         return keyboard;
     }
     public void toggle_nmlok(){ mInputView.is_nmlk_on =  !mInputView.is_nmlk_on; } public boolean is_nm_lok(){ return mInputView.is_nmlk_on ; }
+    public void toggle_sft_lok(){ mInputView.is_sft_on =  !mInputView.is_sft_on; } public boolean is_sft_lok(){ return mInputView.is_sft_on; }
 }

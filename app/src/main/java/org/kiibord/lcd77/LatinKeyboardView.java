@@ -21,7 +21,8 @@ public class LatinKeyboardView extends View  {
     private int device_display_vidTh; private int device_display_height; private int m_lkb_height_percent; private int keypad_display_height;
     private Keyboard mKeyboard; private boolean mKeyboardChanged; private int mJumpThresholdSquare = Integer.MAX_VALUE;
     private int seg2bytes = 0x007F ; int prev_seg_no = -1 ; private float[][] seg_coords ;
-    private Paint paint;public boolean is_nmlk_on = false;private boolean isMeasured;private boolean is_multipoint = true ;
+    private Paint paint;private boolean isMeasured;private boolean is_multipoint = true ;
+    public boolean is_nmlk_on = false; public boolean is_sft_on = false;
     //////////// https://android-developers.googleblog.com/2010/06/making-sense-of-multitouch.html
     //////////// https://stackoverflow.com/questions/4268426/android-difference-between-action-up-and-action-pointer-up/4269592#4269592
     private boolean is_l88up_pending = true;
@@ -170,7 +171,9 @@ public class LatinKeyboardView extends View  {
         paint.setColor(getResources().getColor(R.color.klr_minu));
         canvas.drawText("minu", seg_coords[0xE][0], seg_coords[0xE][1]+font_size*2, paint);
 //        paint.setColor(Color.rgb(0x00,0x00,0x00));
-        paint.setColor(Color.rgb(0xFF,0xFF,0xFF));
+        if(is_sft_on) paint.setColor(getResources().getColor(R.color.klr_sft_on));
+        else paint.setColor(getResources().getColor(R.color.klr_sft_oph));
+//        paint.setColor(Color.rgb(0xFF,0xFF,0xFF));
         canvas.drawText("&sft", seg_coords[0xA][0], seg_coords[0xA][1]+font_size*2, paint);
         canvas.drawText("HN", seg_coords[10][0], seg_coords[10][1]+font_size*3.5f, paint);
 
