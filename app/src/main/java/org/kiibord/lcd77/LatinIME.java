@@ -34,15 +34,10 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
     static final String PREF_multipointer_ON = "is_multipointer";
     static final String PREF_is_rect = "is_rect";
     private boolean mForceKeyboardOn;
-//    private boolean m_multipointer_on = true;
-    private boolean is_ptrup_ev; private int skey_flags = 0 ;
-    private final int skey_flag_sft = 0 ;
-    private final int skey_flag_go = 1 ;
-//    private boolean m_is_rect = true;
+    private boolean is_ptrup_ev; //private final int skey_flags = 0 ;
 
     private AlertDialog mOptionsDialog;
     KeyboardSwitcher mKeyboardSwitcher; private int mNumKeyboardModes = 2;
-    // // /
     public static final GlobalKeyboardSettings sKeyboardSettings = new GlobalKeyboardSettings();
     static LatinIME sInstance; private Resources mResources;
     private int mOrientation; private int mHeightPortrait;private int mHeightLandscape;
