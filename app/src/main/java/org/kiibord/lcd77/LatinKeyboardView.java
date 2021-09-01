@@ -22,7 +22,7 @@ public class LatinKeyboardView extends View  {
     private Keyboard mKeyboard; private boolean mKeyboardChanged; private int mJumpThresholdSquare = Integer.MAX_VALUE;
     private int seg2bytes = 0x007F ; int prev_seg_no = -1 ; private float[][] seg_coords ;
     private Paint paint;private boolean isMeasured;private boolean is_multipoint = true ;
-    public boolean is_nmlk_on = false; public boolean is_sft_on = false;
+    public boolean is_nmlk_on = false; public boolean is_sft_on = false; public boolean is_go_on = false; public boolean is_muv_on = false;
     //////////// https://android-developers.googleblog.com/2010/06/making-sense-of-multitouch.html
     //////////// https://stackoverflow.com/questions/4268426/android-difference-between-action-up-and-action-pointer-up/4269592#4269592
     private boolean is_l88up_pending = true;
@@ -150,17 +150,22 @@ public class LatinKeyboardView extends View  {
         canvas.drawText(" +", seg_coords[9][0], seg_coords[9][1]+font_size*3.5f, paint);
         canvas.drawText(" *", seg_coords[12][0], seg_coords[12][1]+font_size*3.5f, paint);
         canvas.drawText("?", seg_coords[8][0]+96, seg_coords[8][1]+font_size*1.5f, paint);
-        canvas.drawText("F", seg_coords[13][0]+90, seg_coords[13][1]+font_size*2, paint);
+        canvas.drawText("{", seg_coords[13][0]+90, seg_coords[13][1]+font_size*2, paint);
         paint.setTextSize(60);
         canvas.drawText(" :t", seg_coords[6][0], seg_coords[6][1]+font_size*3.5f, paint);
         canvas.drawText("__", seg_coords[11][0]+60, seg_coords[11][1]+font_size*1.5f, paint);
         canvas.drawText(" |", seg_coords[14][0], seg_coords[14][1]+font_size*3.7f, paint);
         paint.setTextSize(font_size);paint.setTypeface(typeface);
 
-        paint.setColor(getResources().getColor(R.color.klr_go_muv));
+//        paint.setColor(getResources().getColor(R.color.klr_go_muv));
+        if(is_go_on) paint.setColor(getResources().getColor(R.color.klr_muv_go_on));
+        else paint.setColor(getResources().getColor(R.color.klr_muv_go_oph));
         canvas.drawText(" go", seg_coords[8][0], seg_coords[8][1]+font_size*2, paint);
-
+        if(is_muv_on) paint.setColor(getResources().getColor(R.color.klr_muv_go_on));
+        else paint.setColor(getResources().getColor(R.color.klr_muv_go_oph));
         canvas.drawText("muv", seg_coords[9][0], seg_coords[9][1]+font_size*2, paint);
+        if(is_muv_on | is_go_on) paint.setColor(getResources().getColor(R.color.klr_muv_go_on));
+        else paint.setColor(getResources().getColor(R.color.klr_muv_go_oph));
         canvas.drawText("< <<", seg_coords[6][0], seg_coords[6][1]+font_size*2, paint);
         canvas.drawText("> >>", seg_coords[1][0], seg_coords[1][1]+font_size*2, paint);
         canvas.drawText("II", seg_coords[0][0]+90, seg_coords[0][1]+font_size, paint);
@@ -177,10 +182,15 @@ public class LatinKeyboardView extends View  {
         canvas.drawText("&sft", seg_coords[0xA][0], seg_coords[0xA][1]+font_size*2, paint);
         canvas.drawText("HN", seg_coords[10][0], seg_coords[10][1]+font_size*3.5f, paint);
 
-        font_size = 32; paint.setTextSize(font_size);
-        paint.setColor(klr_num_rect_oph);
-        String hex_dizits[] = new String[]{"A0&"," e1E"," c2C","u3U","a4@","o5O"," i6i","spc7","ent8","tAb9"," --L","B-J","dotQ","-PW","#X"} ;
-        for (int i=0;i<7;i++)canvas.drawText(hex_dizits[i], seg_coords[i][0], seg_coords[i][1]+font_size, paint);
+//        if(!(is_go_on || is_muv_on)) {
+            font_size = 32;
+            paint.setTextSize(font_size);
+            paint.setColor(klr_num_rect_oph);
+            String hex_dizits[] = new String[]{"A0&", " e1E", " c2C", "u3U", "a4@", "o5O", " i6i", "spc7", "ent8", "k9?", " --L", "B-J", "dotQ", "-PW", "#X"};
+            for (int i = 0; i < 7; i++)
+                canvas.drawText(hex_dizits[i], seg_coords[i][0], seg_coords[i][1] + font_size, paint);
+//        }
+
         paint.setColor(Color.rgb(0x00,0x00,0x00));
         paint.setTextSize(32);
         canvas.drawText(hex_dizits[7], seg_coords[7][0], seg_coords[7][1]+font_size*1.5f, paint);
