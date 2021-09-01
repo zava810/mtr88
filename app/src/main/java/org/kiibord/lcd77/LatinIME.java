@@ -245,9 +245,6 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
     public void muv_go_num_fn_minu_sft(){
         isl88_up_pending = false ; meta = 0 ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null ; send_y_commit_n = true;
         int num88bytes =  l88bytes;
-//        if ( mKeyboardSwitcher.is_nm_lok() && ((num88bytes & 0x0480) == 0)) {num88bytes =  num88bytes ^ 0x8000 ; }
-//        if (mKeyboardSwitcher.is_sft_lok() && ((num88bytes & 0x8080) == 0)) {num88bytes =  num88bytes ^ 0x0400 ; }
-//        if (mKeyboardSwitcher.is_go_lok() && ((num88bytes & 0x0200) == 0)) {num88bytes =  num88bytes ^ 0x0100 ; }
         if ( mKeyboardSwitcher.is_nm_lok() ) {num88bytes =  num88bytes ^ 0x8000 ; }
         if ( mKeyboardSwitcher.is_sft_lok() ) {num88bytes =  num88bytes ^ 0x0400 ; }
         if ( mKeyboardSwitcher.is_go_lok() ) {num88bytes =  num88bytes ^ 0x0100 ; }
