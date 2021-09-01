@@ -445,22 +445,28 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             { num88bytes =  num88bytes ^ 0x0400 ; }
         switch (num88bytes) {
             // ******************************************************* //
-            // send_06 k2p = yllo + 1 = 2 keys from 0-6 bilo + sft/dot/num
+            // send_06 k2p = yllo + 1 = 2 keys from 0-6 bilo + sft/dot
             // ******************************************************* //
             case 0x00FE: kk = KeyEvent.KEYCODE_PERIOD; break; //yllo
             case 0x04FE: kk = KeyEvent.KEYCODE_PERIOD; break; //yllo + sft
+
             case 0x00FD: kk = KeyEvent.KEYCODE_ESCAPE; break; //yllo
             case 0x04FD: kk = KeyEvent.KEYCODE_ESCAPE; break; //yllo + sft
+
             case 0x00FB: kk = KeyEvent.KEYCODE_SEMICOLON; break; //yllo
-            case 0x04FB: kk = KeyEvent.KEYCODE_SEMICOLON; break; //yllo + sft
+            case 0x04FB: send_y_commit_n = false; ksek = ":" ; //yllo + sft
+
             case 0x00F7: kk = KeyEvent.KEYCODE_X; break; //yllo
-            case 0x04F7: kk = KeyEvent.KEYCODE_X; break; //yllo + sft
+            case 0x04F7: send_y_commit_n = false; ksek = "X"; break; //yllo + sft
+
             case 0x00EF: send_y_commit_n = false; ksek = "D"; break; //yllo
-            case 0x04EF: send_y_commit_n = false; ksek = "D"; break; //yllo + sft
+            case 0x04EF: kk = KeyEvent.KEYCODE_D; break; //yllo + sft
+
             case 0x00DF: kk = KeyEvent.KEYCODE_MINUS; break; //yllo
-            case 0x04DF: kk = KeyEvent.KEYCODE_MINUS; break; //yllo + sft
-            case 0x00BF: send_y_commit_n = false; ksek = ":"; break; //yllo
-            case 0x04BF: send_y_commit_n = false; ksek = ":"; break; //yllo + sft
+            case 0x04DF: kk = KeyEvent.KEYCODE_EQUALS; break; //yllo + sft
+
+            case 0x00BF: send_y_commit_n = false; ksek = ":" ; break; //yllo
+            case 0x04BF: kk = KeyEvent.KEYCODE_SEMICOLON ; break; //yllo + sft
 
             // ******************************************************* //
             // send_06 k2p = 2 keys from 0-6 bilo + sft/dot/num
@@ -599,10 +605,10 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
 //            case 0x00EC: kk = KeyEvent.KEYCODE_SEMICOLON; break;
 //            case 0x046C: kk = KeyEvent.KEYCODE_SEMICOLON; break;
 
-            case 0x006A: kk = KeyEvent.KEYCODE_W; break;
+            case 0x006A: send_y_commit_n = false; ksek = "V"; break;
             case 0x806A: send_y_commit_n = false; ksek = "~"; break;
             case 0x00EA: send_y_commit_n = false; ksek = "~"; break;
-            case 0x046A: send_y_commit_n = false; ksek = "W"; break;
+            case 0x046A: kk = KeyEvent.KEYCODE_V; break;
 
             case 0x0069: kk = KeyEvent.KEYCODE_SEMICOLON; break;
             case 0x8069: send_y_commit_n = false; ksek = "<>"; break;
@@ -693,7 +699,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0x8036: kk = KeyEvent.KEYCODE_SEMICOLON; break;
             case 0x0436: kk = KeyEvent.KEYCODE_SEMICOLON; break;
 
-            case 0x0035: send_y_commit_n = false; ksek = "!"; break;
+            case 0x0035: send_y_commit_n = false; ksek = "^"; break;
             case 0x00B5: kk = KeyEvent.KEYCODE_W; break;
             case 0x8035: send_y_commit_n = false; ksek = "|"; break;
             case 0x0435: kk = KeyEvent.KEYCODE_W; break;
@@ -718,10 +724,10 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0x802B: send_y_commit_n = false; ksek = "G"; break;
             case 0x042B: send_y_commit_n = false; ksek = "G" ; break;
 
-            case 0x0027: kk = KeyEvent.KEYCODE_APOSTROPHE; break;
+            case 0x0027: kk = KeyEvent.KEYCODE_R; break;
             case 0x00A7: send_y_commit_n = false; ksek = "~"; break;
-            case 0x8027: send_y_commit_n = false; ksek = "T"; break;
-            case 0x0427: send_y_commit_n = false; ksek = "[]" ; break;
+            case 0x8027: kk = KeyEvent.KEYCODE_R; break;
+            case 0x0427: kk = KeyEvent.KEYCODE_R; break;
 
             case 0x001E: send_y_commit_n = false; ksek = "<>"; break;
             case 0x009E: send_y_commit_n = false; ksek = "()"; break;
@@ -768,7 +774,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
 	        // case 0x8064: isl88_up_pending = true; break;	
 	        // case 0x0464: isl88_up_pending = true; break;
 
-            case 0x0062: send_y_commit_n = false; ksek = "*"; break;
+            case 0x0062: send_y_commit_n = false; ksek = "M"; break;
             // case 0x00E2: send_y_commit_n = false; ksek = "*"; break;
 	        // case 0x8062: isl88_up_pending = true; break;	
 	        // case 0x0462: isl88_up_pending = true; break;
@@ -803,12 +809,12 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
 	        // case 0x804C: isl88_up_pending = true; break;	
 	        // case 0x044C: isl88_up_pending = true; break;
 
-            case 0x004A: send_y_commit_n = false; ksek = "U"; break;
+            case 0x004A: send_y_commit_n = false; ksek = "W"; break;
             // case 0x00CA: send_y_commit_n = false; ksek = "U"; break;
             // case 0x804A: isl88_up_pending = true; break;	
             // case 0x044A: isl88_up_pending = true; break;
 
-            case 0x0049: send_y_commit_n = false; ksek = "%"; break;
+            case 0x0049: send_y_commit_n = false; ksek = "W"; break;
             // case 0x00C9: send_y_commit_n = false; ksek = "%"; break;
             // case 0x8049: isl88_up_pending = true; break;	
             // case 0x0449: isl88_up_pending = true; break;
@@ -878,7 +884,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0x8023: isl88_up_pending = true; break;
            	// case 0x0423: isl88_up_pending = true; break;
 
-            case 0x001C: kk = KeyEvent.KEYCODE_MINUS; break;
+            case 0x001C: send_y_commit_n = false; ksek = "*"; break;
             // case 0x009C: kk = KeyEvent.KEYCODE_MINUS; break;
             // case 0x801C: isl88_up_pending = true; break;
             // case 0x041C: isl88_up_pending = true; break;
@@ -888,7 +894,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0x801A: isl88_up_pending = true; break;
             // case 0x041A: isl88_up_pending = true; break;
 
-            case 0x0019: send_y_commit_n = false; ksek = "%"; break;
+            case 0x0019: send_y_commit_n = false; ksek = "!"; break;
             // case 0x0099: send_y_commit_n = false; ksek = "%"; break;
             // case 0x8019: isl88_up_pending = true; break;
             // case 0x0419: isl88_up_pending = true; break;
@@ -898,7 +904,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0x8016: isl88_up_pending = true; break;
             case 0x0416: kk = KeyEvent.KEYCODE_RIGHT_BRACKET; break;
 
-            case 0x0015: send_y_commit_n = false; ksek = "*"; break;
+            case 0x0015: send_y_commit_n = false; ksek = "N"; break;
             // case 0x0095: send_y_commit_n = false; ksek = "*"; break;
             // case 0x8015: isl88_up_pending = true; break;
             // case 0x0415: isl88_up_pending = true; break;
@@ -1117,10 +1123,22 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
     public void send_8E(){
         isl88_up_pending = false ; meta = 0 ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null; send_y_commit_n = true;
         int num88bytes =  l88bytes;
-//        if (mKeyboardSwitcher.is_sft_lok() && ((num88bytes & 0x8080) == 0)) {num88bytes =  num88bytes ^ 0x0400 ; }
-        if (mKeyboardSwitcher.is_sft_lok()) {num88bytes =  num88bytes ^ 0x0400 ; }
+//        if (mKeyboardSwitcher.is_sft_lok() && ((num88bytes & 0x0080) == 0)) // if yllo key is also pressed ignore sft mode/on/key
+//            { num88bytes =  num88bytes ^ 0x0400 ; }
         switch (num88bytes) {
-            // send_8E : k2p=2
+            // ******************************************************* //
+            // send_8E k2p = 1 keys from 8-X bilo and dot
+            // ******************************************************* //
+            case 0x01FF: send_y_commit_n = false; ksek = "?"; break;
+            case 0x02FF: send_y_commit_n = false; ksek = "+"; break;
+            case 0x04FF: send_y_commit_n = false; ksek = "()"; break;
+            case 0x08FF: send_y_commit_n = false; ksek = "_"; break;
+            case 0x10FF: send_y_commit_n = false; ksek = "*"; break;
+            case 0x20FF: send_y_commit_n = false; ksek = "{}"; break;
+            case 0x40FF: send_y_commit_n = false; ksek = "|"; break;
+            // ******************************************************* //
+            // send_8E k2p = yllo + 1 = 2 keys from 0-6 bilo + sft/dot/num
+            // ******************************************************* //
             case 0x037F: kk = KeyEvent.KEYCODE_COMMA; break;
            	case 0x03FF: send_y_commit_n = false; ksek = "_"; break;
             // case 0x837F: isl88_up_pending = true; break;
@@ -2164,7 +2182,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0x8051: isl88_up_pending = true; break;	
             // case 0x0451: isl88_up_pending = true; break;
 
-            case 0x004C: kk = KeyEvent.KEYCODE_BACKSLASH; break;
+            case 0x004C: send_y_commit_n = false; ksek = "!"; break;
             // case 0x00CC: send_y_commit_n = false; ksek = "%"; break;
             // case 0x804C: isl88_up_pending = true; break;	
             // case 0x044C: isl88_up_pending = true; break;
