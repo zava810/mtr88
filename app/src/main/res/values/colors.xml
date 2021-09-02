@@ -13,7 +13,7 @@
     <color name="klr_sft">#8888FF</color>
     <color name="klr_star_mul">#0000FF</color>
     <color name="klr_ktl_alt">#FFAAAA</color>
-    <color name="klr_num_rect_oph">#FFFFFF</color><color name="klr_123_on">#000000</color><color name="klr_123_oph">#FF7777</color>
+    <color name="klr_sfeD">#FFFFFF</color><color name="klr_123_on">#000000</color><color name="klr_123_oph">#FF7777</color>
     <color name="klr_sft_on">#FFFFFF</color><color name="klr_sft_oph">#6666FF</color>
     <color name="klr_muv_go_on">#88FFFF</color><color name="klr_muv_go_oph">#FF88FF</color>
     <color name="klr_go_muv">#FF88FF</color>
