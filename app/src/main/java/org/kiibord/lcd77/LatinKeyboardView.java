@@ -121,29 +121,34 @@ public class LatinKeyboardView extends View  {
         paint.setTextSize(32); paint.setTypeface(typeface); // paint.setColor(Color.rgb(0xFF,0xFF,0x33));
 //        canvas.drawText("minu", seg_coords[0xE][0], seg_coords[0xE][1]+font_size*2, paint);
         paint.setColor(Color.rgb(0x00,0xFF,0x00));
-        canvas.drawText("Fn", seg_coords[13][0], seg_coords[13][1]+ font_vidTh *2, paint);
+        canvas.drawText("Fn", seg_coords[13][0], seg_coords[13][1]+ font_vidTh *2.5f, paint);
         paint.setColor(getResources().getColor(R.color.klr_ktl_alt));
         canvas.drawText("knt", seg_coords[0xC][0], seg_coords[0xC][1]+ font_vidTh *2, paint);
-        canvas.drawText("alt", seg_coords[11][0], seg_coords[11][1]+ font_vidTh *2, paint);
-        paint.setTextSize(36); paint.setColor(Color.rgb(0x00,0x00,0x00)); paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-        canvas.drawText("*;-|", seg_coords[7][0], seg_coords[7][1]+ font_vidTh *3, paint);
+        canvas.drawText("alt", seg_coords[11][0], seg_coords[11][1]+ font_vidTh *2.5f, paint);
+        paint.setTextSize(36); paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+        paint.setColor(getResources().getColor(R.color.klr_del));
+        canvas.drawText("<---", seg_coords[11][0]+font_vidTh, seg_coords[11][1]+ font_vidTh, paint);
+        canvas.drawText("--->", seg_coords[13][0]+font_vidTh, seg_coords[13][1]+ font_vidTh, paint);
+        paint.setColor(Color.rgb(0x00,0x00,0x00));
+        canvas.drawText("^;-|+", seg_coords[7][0], seg_coords[7][1]+ font_vidTh *3, paint);
         paint.setTextSize(32);paint.setTypeface(typeface); paint.setColor(oph1);
         canvas.drawText("escf", seg_coords[1][0], seg_coords[1][1]+ font_vidTh *3, paint);
         paint.setTextSize(56); paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
         canvas.drawText(" x ", seg_coords[3][0], seg_coords[3][1]+ font_vidTh *2.5f, paint);
-        canvas.drawText("-", seg_coords[5][0], seg_coords[5][1]+ font_vidTh *2.5f, paint);
+        canvas.drawText(" --", seg_coords[5][0], seg_coords[5][1]+ font_vidTh *2.5f, paint);
         paint.setTextSize(38);
-        canvas.drawText(" ;f", seg_coords[2][0], seg_coords[2][1]+ font_vidTh *2.5f, paint);
         paint.setTextSize(48);
+        canvas.drawText(" ; f", seg_coords[2][0], seg_coords[2][1]+ font_vidTh *2.5f, paint);
         canvas.drawText("dot.", seg_coords[0][0], seg_coords[0][1]+ font_vidTh *2.5f, paint);
-        canvas.drawText("Dt", seg_coords[4][0], seg_coords[4][1]+ font_vidTh *3, paint);
+        canvas.drawText("D t", seg_coords[4][0], seg_coords[4][1]+ font_vidTh *3, paint);
         canvas.drawText(" +", seg_coords[9][0], seg_coords[9][1]+ font_vidTh *3.5f, paint);
         canvas.drawText(" *", seg_coords[12][0], seg_coords[12][1]+ font_vidTh *3.5f, paint);
-        canvas.drawText("?", seg_coords[8][0]+96, seg_coords[8][1]+ font_vidTh *1.5f, paint);
-        canvas.drawText("{", seg_coords[13][0]+90, seg_coords[13][1]+ font_vidTh *2, paint);
+        canvas.drawText("?", seg_coords[8][0]+96, seg_coords[8][1]+ font_vidTh *2.5f, paint);
+        canvas.drawText("{", seg_coords[13][0]+100, seg_coords[13][1]+ font_vidTh *2.5f, paint);
+        canvas.drawText("[", seg_coords[11][0]+64, seg_coords[11][1]+ font_vidTh *2.5f, paint);
+        canvas.drawText("(", seg_coords[10][0]+50, seg_coords[10][1]+ font_vidTh *3.5f, paint);
         paint.setTextSize(60);
-        canvas.drawText(" :t", seg_coords[6][0], seg_coords[6][1]+ font_vidTh *3.5f, paint);
-        canvas.drawText("__", seg_coords[11][0]+60, seg_coords[11][1]+ font_vidTh *1.5f, paint);
+        canvas.drawText(": t", seg_coords[6][0], seg_coords[6][1]+ font_vidTh *3.5f, paint);
         canvas.drawText(" |", seg_coords[14][0], seg_coords[14][1]+ font_vidTh *3.7f, paint);
         paint.setTextSize(32);paint.setTypeface(typeface);
         if(is_go_on) paint.setColor(getResources().getColor(R.color.klr_muv_go_on));
@@ -164,24 +169,32 @@ public class LatinKeyboardView extends View  {
         if(is_sft_on) paint.setColor(getResources().getColor(R.color.klr_minu));
         else paint.setColor(getResources().getColor(R.color.klr_sfeD));
         canvas.drawText("&sft", seg_coords[0xA][0], seg_coords[0xA][1]+ font_vidTh *2, paint);
-        canvas.drawText("HEN", seg_coords[10][0], seg_coords[10][1]+ font_vidTh *3.5f, paint);
+        canvas.drawText("HE", seg_coords[10][0], seg_coords[10][1]+ font_vidTh *3.5f, paint);
+
+        // lcd1 tekst
+        String hex_dizits[] = new String[]{" A0&", " e1E", " c2C", " u3U", "a4@", " o5O", " i6i", "spc7", "dot8", "__9k", "----L", "J", "entQ", "W", "#X"};
         paint.setTextSize(32); paint.setColor(klr_sfeD);
-        String hex_dizits[] = new String[]{"A0&", " e1E", " c2C", "u3U", "a4@", "o5O", " i6i", "spc7", "ent8", "k9?", " --L", "B-J", "dotQ", "-PW", "#X"};
+        if(is_sft_on) paint.setColor(getResources().getColor(R.color.klr_minu));
+        else paint.setColor(klr_sfeD); // paint.setColor(getResources().getColor(R.color.klr_123_oph));
         for (int i = 0; i < 7; i++) canvas.drawText(hex_dizits[i], seg_coords[i][0], seg_coords[i][1] + font_vidTh, paint);
+
+        // yllo button tekst
         paint.setColor(Color.rgb(0x00,0x00,0x00)); paint.setTextSize(32);
         canvas.drawText(hex_dizits[7], seg_coords[7][0], seg_coords[7][1]+ font_vidTh *1.5f, paint);
+
+        // lcd2 tekst
         paint.setColor(klr_sfeD); paint.setTextSize(font_vidTh);
         for (int i=8;i<0xF;i++) canvas.drawText(hex_dizits[i], seg_coords[i][0], seg_coords[i][1]+ font_vidTh, paint);
+
         paint.setColor(Color.rgb(0x00,0x00,0x00)); paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-        canvas.drawText("+= ( {", seg_coords[0xF][0], seg_coords[0xF][1]+ font_vidTh *2.5f, paint);
+        canvas.drawText("( {", seg_coords[0xF][0], seg_coords[0xF][1]+ font_vidTh *2.5f, paint);
         paint.setColor(Color.rgb(0xFF,0xFF,0xAA));paint.setTextSize(40);
-        canvas.drawText("(", seg_coords[10][0]+50, seg_coords[10][1]+ font_vidTh *3.5f, paint);
         if(is_nmlk_on) paint.setColor(getResources().getColor(R.color.klr_123_on));
         else paint.setColor(getResources().getColor(R.color.klr_123_oph));
         paint.setTextSize(48); paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
         canvas.drawText("123", seg_coords[0xF][0], seg_coords[0xF][1]+ font_vidTh *1.2f, paint);
-        paint.setColor(Color.rgb(0x00,0xAA,0x00)); paint.setTextSize(32);
-        canvas.drawText("F123", seg_coords[0xF][0], seg_coords[0xF][1]+ font_vidTh *3.7f, paint);
+        paint.setColor(Color.rgb(0x00,0x00,0x00)); paint.setTextSize(32);
+        canvas.drawText("Fx", seg_coords[0xF][0], seg_coords[0xF][1]+ font_vidTh *3.7f, paint);
     }
 
     @Override public boolean onTouchEvent(MotionEvent me) {

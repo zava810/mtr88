@@ -349,10 +349,10 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // ******************************************************* //
             // num_fn_minu_sft vhite key k2p = 0 keys from 0-6 + sft/dot/num
             // ******************************************************* //
-            case 0x007F: send_y_commit_n = false; ksek = "F"; break; // num
-            case 0x047F: send_y_commit_n = false; ksek = "_"; break; // sft
+            case 0x007F: send_y_commit_n = false; ksek = "F"; break; // send_y_commit_n = false; ksek = "F"; break; // num
+            case 0x047F: kk = KeyEvent.KEYCODE_MINUS; break; // sft
             case 0x847F: send_y_commit_n = false; ksek = "L"; break; // num + stt
-            case 0x807F: kk = KeyEvent.KEYCODE_F; break;
+            case 0x807F: send_y_commit_n = false; ksek = "F"; break; // kk = KeyEvent.KEYCODE_F; break;
 
             // ******************************************************* //
             // num_fn_minu_sft yllo key k2p = 0 keys from 0-6 + sft/dot/num
@@ -381,13 +381,13 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // 82F num keys bilo
             ////////////////////
 
-            case 0x017F:  kk = KeyEvent.KEYCODE_ENTER; break;
+            case 0x017F:  kk = KeyEvent.KEYCODE_PERIOD; break;
             case 0x817F:  kk = KeyEvent.KEYCODE_8; break; //num
-            case 0x057F:  kk = KeyEvent.KEYCODE_ENTER; break; //sft
+            case 0x057F:  kk = KeyEvent.KEYCODE_PERIOD; break; //sft
             // pnc case
             case 0x857F: kk = KeyEvent.KEYCODE_8; break; //num + sft ignore sft
 
-            case 0x027F:  send_y_commit_n = false; ksek = "?"; break;
+            case 0x027F:  send_y_commit_n = false; ksek = "_"; break;
             case 0x827F:  kk = KeyEvent.KEYCODE_9; break; //num
             case 0x067F:  send_y_commit_n = false; ksek = "K"; break; //sft
             // pnc case
@@ -399,11 +399,11 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // pnc case
             case 0x8C7F: kk = KeyEvent.KEYCODE_DEL; break; //num + sft ignore num as decimal numbers are used more
 
-            case 0x107F: kk = KeyEvent.KEYCODE_PERIOD; break;
+            case 0x107F: kk = KeyEvent.KEYCODE_ENTER; break;
             case 0x907F: send_y_commit_n = false; ksek = "Q"; break; // num
-            case 0x147F: kk = KeyEvent.KEYCODE_PERIOD; break; // sft
+            case 0x147F: kk = KeyEvent.KEYCODE_ENTER; break; // sft
             // pnc case
-            case 0x947F: kk = KeyEvent.KEYCODE_PERIOD; break; //num + sft ignore num as decimal numbers are used more
+            case 0x947F: kk = KeyEvent.KEYCODE_ENTER; break; //num + sft ignore num as decimal numbers are used more
 
             case 0x207F:  kk = KeyEvent.KEYCODE_FORWARD_DEL; break;
             case 0xA07F: send_y_commit_n = false; ksek = "W" ; break; // num
@@ -472,7 +472,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // send_06 k2p = 2 keys from 0-6 bilo + sft/dot/num
             // ******************************************************* //
             case 0x007C: kk = KeyEvent.KEYCODE_P; break;
-            case 0x00FC: kk = KeyEvent.KEYCODE_COMMA; break;
+            case 0x00FC: send_y_commit_n = false; ksek = "+"; break;
             case 0x807C: send_y_commit_n = false; ksek = "+"; break;
             case 0x047C: send_y_commit_n = false; ksek = "P"; break;
 
@@ -1132,7 +1132,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0x01FF: send_y_commit_n = false; ksek = "?"; break;
             case 0x02FF: send_y_commit_n = false; ksek = "+"; break;
             case 0x04FF: send_y_commit_n = false; ksek = "()"; break;
-            case 0x08FF: send_y_commit_n = false; ksek = "_"; break;
+            case 0x08FF: send_y_commit_n = false; ksek = "[]"; break;
             case 0x10FF: send_y_commit_n = false; ksek = "*"; break;
             case 0x20FF: send_y_commit_n = false; ksek = "{}"; break;
             case 0x40FF: send_y_commit_n = false; ksek = "|"; break;
@@ -1592,7 +1592,9 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
     public void send_minu(){
         isl88_up_pending = false ; meta = 0 ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null ; send_y_commit_n = true;
         switch (l88bytes) {
-            case 0x407E: kk = KeyEvent.KEYCODE_BUTTON_THUMBR; break;
+            case 0x407E: kk = KeyEvent.KEYCODE_MENU; break;
+            case 0x407D: meta = meta | KeyEvent.META_ALT_ON ; kk = KeyEvent.KEYCODE_F; break;
+            case 0x407B: kk = KeyEvent.KEYCODE_POWER; break;
             case 0x607F: kk = KeyEvent.KEYCODE_FORWARD_DEL; break;
             default: isl88_up_pending = true ; break ;
         }
@@ -1601,13 +1603,14 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
     public void send_fn_on(){
         isl88_up_pending = false ; meta = KeyEvent.META_FUNCTION_ON ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null ; send_y_commit_n = true;
         switch (l88bytes) {
+            case 0x207C: kk = KeyEvent.KEYCODE_PLUS; break;
             case 0x207D: kk = KeyEvent.KEYCODE_F1; break;
             case 0x207B: kk = KeyEvent.KEYCODE_F2; break;
             case 0x2077: kk = KeyEvent.KEYCODE_F3; break;
             case 0x206F: kk = KeyEvent.KEYCODE_F4; break;
             case 0x205F: kk = KeyEvent.KEYCODE_F5; break;
             case 0x203F: kk = KeyEvent.KEYCODE_F6; break;
-            case 0x20FF: kk = KeyEvent.KEYCODE_F7; break;
+            case 0xA0FF: kk = KeyEvent.KEYCODE_F7; break;
             case 0x217F: kk = KeyEvent.KEYCODE_F8; break;
             case 0x227F: kk = KeyEvent.KEYCODE_F9; break;
             case 0x247F:  kk = KeyEvent.KEYCODE_F10; break;
@@ -1781,11 +1784,11 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // 82F num keys bilo
             ////////////////////
 
-            case 0x017F:  kk = KeyEvent.KEYCODE_ENTER; break;
+            case 0x017F:  kk = KeyEvent.KEYCODE_PERIOD; break;
             case 0x817F:  kk = KeyEvent.KEYCODE_8; break; //num
-            case 0x057F:  kk = KeyEvent.KEYCODE_ENTER; break; //sft
+            case 0x057F:  kk = KeyEvent.KEYCODE_PERIOD; break; //sft
             // pnc case
-            case 0x857F: kk = KeyEvent.KEYCODE_ENTER; break; //num + sft ignore sft
+            case 0x857F: kk = KeyEvent.KEYCODE_PERIOD; break; //num + sft ignore sft
 
             case 0x027F:  kk = KeyEvent.KEYCODE_K; break;
             case 0x827F:  kk = KeyEvent.KEYCODE_9; break; //num
@@ -1799,7 +1802,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // pnc case
             case 0x8C7F: kk = KeyEvent.KEYCODE_J; break; //num + sft ignore num as decimal numbers are used more
 
-            case 0x107F: kk = KeyEvent.KEYCODE_PERIOD; break;
+            case 0x107F: kk = KeyEvent.KEYCODE_ENTER; break;
             case 0x907F: kk = KeyEvent.KEYCODE_Q; break; // num
             case 0x147F: kk = KeyEvent.KEYCODE_Q; break; // sft
             // pnc case
@@ -2498,7 +2501,6 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // send_8E  k2p = 0 keys from 8-E bilo + dot/num
             // ******************************************************* //
             // send_8E : k2p=0,1
-            // case 0x107F:  kk = KeyEvent.KEYCODE_PERIOD; break;
             // case 0x907F:  send_y_commit_n = false;ksek = "Q"; break;
 
             // case 0x007F: isl88_up_pending = true; break;
@@ -2506,7 +2508,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0x807F: isl88_up_pending = true; break;
             // case 0x80FF: isl88_up_pending = true; break;
 
-            case 0x017F:  kk = KeyEvent.KEYCODE_ENTER; break;
+            case 0x017F:  kk = KeyEvent.KEYCODE_PERIOD; break;
             case 0x817F:  kk = KeyEvent.KEYCODE_8; break;
             // case 0xS1: send_y_commit_n = false; ksek = "?"; break;
             // case 0x817F: isl88_up_pending = true; break;
@@ -2528,7 +2530,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0x887F:  send_y_commit_n = false;ksek = "J"; break;
             // case 0x88FF: isl88_up_pending = true; break;
 
-            // case 0x107F: isl88_up_pending = true; break;
+             case 0x107F: kk = KeyEvent.KEYCODE_ENTER; break;
             // case 0xS1: send_y_commit_n = false; ksek = "*"; break;
             // case 0x907F: isl88_up_pending = true; break;
             // case 0x90FF: isl88_up_pending = true; break;
