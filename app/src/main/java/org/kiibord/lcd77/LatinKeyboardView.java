@@ -139,7 +139,7 @@ public class LatinKeyboardView extends View  {
         paint.setTextSize(38);
         paint.setTextSize(48);
         canvas.drawText(" ; f", seg_coords[2][0], seg_coords[2][1]+ font_vidTh *2.5f, paint);
-        canvas.drawText("dot.", seg_coords[0][0], seg_coords[0][1]+ font_vidTh *2.5f, paint);
+        canvas.drawText("N", seg_coords[0][0], seg_coords[0][1]+ font_vidTh *2.5f, paint);
         canvas.drawText("D t", seg_coords[4][0], seg_coords[4][1]+ font_vidTh *3, paint);
         canvas.drawText(" +", seg_coords[9][0], seg_coords[9][1]+ font_vidTh *3.5f, paint);
         canvas.drawText(" *", seg_coords[12][0], seg_coords[12][1]+ font_vidTh *3.5f, paint);
@@ -172,7 +172,7 @@ public class LatinKeyboardView extends View  {
         canvas.drawText("HE", seg_coords[10][0], seg_coords[10][1]+ font_vidTh *3.5f, paint);
 
         // lcd1 tekst
-        String hex_dizits[] = new String[]{" A0&", " e1E", " c2C", " u3U", "a4@", " o5O", " i6i", "spc7", "dot8", "__9k", "----L", "J", "entQ", "W", "#X"};
+        String hex_dizits[] = new String[]{" A0&", " e1E", " c2C", " u3U", "a4@", " o5O", " i6i", "spc7", "dot.8", "__9k", "----L", "J", "Qent", "W", "#X"};
         paint.setTextSize(32); paint.setColor(klr_sfeD);
         if(is_sft_on) paint.setColor(getResources().getColor(R.color.klr_minu));
         else paint.setColor(klr_sfeD); // paint.setColor(getResources().getColor(R.color.klr_123_oph));

@@ -447,14 +447,14 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // ******************************************************* //
             // send_06 k2p = yllo + 1 = 2 keys from 0-6 bilo + sft/dot
             // ******************************************************* //
-            case 0x00FE: kk = KeyEvent.KEYCODE_PERIOD; break; //yllo
-            case 0x04FE: kk = KeyEvent.KEYCODE_PERIOD; break; //yllo + sft
+            case 0x00FE: send_y_commit_n = false; ksek = "N" ; break; //yllo
+            case 0x04FE: kk = KeyEvent.KEYCODE_N; break; //yllo + sft
 
             case 0x00FD: kk = KeyEvent.KEYCODE_ESCAPE; break; //yllo
             case 0x04FD: kk = KeyEvent.KEYCODE_ESCAPE; break; //yllo + sft
 
             case 0x00FB: kk = KeyEvent.KEYCODE_SEMICOLON; break; //yllo
-            case 0x04FB: send_y_commit_n = false; ksek = ":" ; //yllo + sft
+            case 0x04FB: send_y_commit_n = false; ksek = ":" ; break; //yllo + sft
 
             case 0x00F7: kk = KeyEvent.KEYCODE_X; break; //yllo
             case 0x04F7: send_y_commit_n = false; ksek = "X"; break; //yllo + sft
@@ -1833,7 +1833,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // ******************************************************* //
             // send_06 k2p = yllo + 1 = 2 keys from 0-6 bilo + sft/dot/num
             // ******************************************************* //
-            case 0x00FE: kk = KeyEvent.KEYCODE_PERIOD; break; //yllo
+            case 0x00FE: kk = KeyEvent.KEYCODE_N; break; //yllo
             case 0x04FE: kk = KeyEvent.KEYCODE_PERIOD; break; //yllo + sft
             case 0x00FD: kk = KeyEvent.KEYCODE_ESCAPE; break; //yllo
             case 0x04FD: kk = KeyEvent.KEYCODE_ESCAPE; break; //yllo + sft
