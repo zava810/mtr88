@@ -187,14 +187,14 @@ public class LatinKeyboardView extends View  {
         for (int i=8;i<0xF;i++) canvas.drawText(hex_dizits[i], seg_coords[i][0], seg_coords[i][1]+ font_vidTh, paint);
 
         paint.setColor(Color.rgb(0x00,0x00,0x00)); paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-        canvas.drawText("( {", seg_coords[0xF][0], seg_coords[0xF][1]+ font_vidTh *2.5f, paint);
+        canvas.drawText("Fx", seg_coords[0xF][0], seg_coords[0xF][1]+ font_vidTh *2.5f, paint);
         paint.setColor(Color.rgb(0xFF,0xFF,0xAA));paint.setTextSize(40);
         if(is_nmlk_on) paint.setColor(getResources().getColor(R.color.klr_123_on));
         else paint.setColor(getResources().getColor(R.color.klr_123_oph));
         paint.setTextSize(48); paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
         canvas.drawText("123", seg_coords[0xF][0], seg_coords[0xF][1]+ font_vidTh *1.2f, paint);
         paint.setColor(Color.rgb(0x00,0x00,0x00)); paint.setTextSize(32);
-        canvas.drawText("Fx", seg_coords[0xF][0], seg_coords[0xF][1]+ font_vidTh *3.7f, paint);
+        canvas.drawText("XYZ-", seg_coords[0xF][0], seg_coords[0xF][1]+ font_vidTh *3.7f, paint);
     }
 
     @Override public boolean onTouchEvent(MotionEvent me) {
