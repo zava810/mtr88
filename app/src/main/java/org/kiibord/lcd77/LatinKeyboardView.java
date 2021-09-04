@@ -141,7 +141,7 @@ public class LatinKeyboardView extends View  {
         canvas.drawText(" ; f", seg_coords[2][0], seg_coords[2][1]+ font_vidTh *2.5f, paint);
         canvas.drawText("N", seg_coords[0][0], seg_coords[0][1]+ font_vidTh *2.5f, paint);
         canvas.drawText("D t", seg_coords[4][0], seg_coords[4][1]+ font_vidTh *3, paint);
-        canvas.drawText(" +", seg_coords[9][0], seg_coords[9][1]+ font_vidTh *3.5f, paint);
+        canvas.drawText(" +", seg_coords[9][0], seg_coords[9][1]+ font_vidTh *3.7f, paint);
         canvas.drawText(" *", seg_coords[12][0], seg_coords[12][1]+ font_vidTh *3.5f, paint);
         canvas.drawText("?", seg_coords[8][0]+96, seg_coords[8][1]+ font_vidTh *2.5f, paint);
         canvas.drawText("{", seg_coords[13][0]+100, seg_coords[13][1]+ font_vidTh *2.5f, paint);
@@ -156,7 +156,7 @@ public class LatinKeyboardView extends View  {
         canvas.drawText(" go", seg_coords[8][0], seg_coords[8][1]+ font_vidTh *2, paint);
         if(is_muv_on) paint.setColor(getResources().getColor(R.color.klr_muv_go_on));
         else paint.setColor(getResources().getColor(R.color.klr_muv_go_oph));
-        canvas.drawText("muv", seg_coords[9][0], seg_coords[9][1]+ font_vidTh *2, paint);
+        canvas.drawText("muv", seg_coords[9][0], seg_coords[9][1]+ font_vidTh *2.4f, paint);
         if(is_muv_on | is_go_on) paint.setColor(getResources().getColor(R.color.klr_muv_go_on));
         else paint.setColor(getResources().getColor(R.color.klr_muv_go_oph));
         canvas.drawText("< <<", seg_coords[6][0], seg_coords[6][1]+ font_vidTh *2, paint);

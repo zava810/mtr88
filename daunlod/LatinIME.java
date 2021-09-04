@@ -300,7 +300,6 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             case 0x803F: kk = KeyEvent.KEYCODE_6; break; // muv_go_num_fn_minu_sft : 123
             case 0x023F: kk = KeyEvent.KEYCODE_MOVE_HOME; break; // muv_go_num_fn_minu_sft : muv
             case 0x013F: kk = KeyEvent.KEYCODE_DPAD_LEFT; break; // muv_go_num_fn_minu_sft : go
-            case 0x097F: kk = KeyEvent.KEYCODE_BACK; break; // muv_go_num_fn_minu_sft : go
             case 0x063F: meta = meta | KeyEvent.META_SHIFT_ON ;  kk = KeyEvent.KEYCODE_MOVE_HOME; break; // muv_go_num_fn_minu_sft : muv + sft
             case 0x053F: meta = meta | KeyEvent.META_SHIFT_ON ;  kk = KeyEvent.KEYCODE_DPAD_LEFT; break; // muv_go_num_fn_minu_sft : go + sft
             case 0x123F: meta = meta | KeyEvent.META_CTRL_ON ; kk = KeyEvent.KEYCODE_MOVE_HOME; break; // muv_go_num_fn_minu_sft : muv + ktl
@@ -1150,7 +1149,7 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
             // case 0x867F: isl88_up_pending = true; break;
            	// case 0x86FF: isl88_up_pending = true; break;
 
-//            case 0x097F: send_y_commit_n = false; ksek = ":" ; break;  // back_key
+            case 0x097F: send_y_commit_n = false; ksek = ":" ; break;
            	case 0x09FF: kk = KeyEvent.KEYCODE_EQUALS; break;
             // case 0x897F: isl88_up_pending = true; break;
            	// case 0x89FF: isl88_up_pending = true; break;
@@ -1594,11 +1593,9 @@ public class LatinIME extends InputMethodService implements LatinKeyboardView.On
         isl88_up_pending = false ; meta = 0 ; kk = KeyEvent.KEYCODE_UNKNOWN ; ksek = null ; send_y_commit_n = true;
         switch (l88bytes) {
             case 0x407E: kk = KeyEvent.KEYCODE_MENU; break;
-            case 0x405F: kk = KeyEvent.KEYCODE_MINUS; break;
             case 0x487F: kk = KeyEvent.KEYCODE_SOFT_LEFT; break;
             case 0x607F: kk = KeyEvent.KEYCODE_SOFT_RIGHT; break;
-            case 0x487D: kk = KeyEvent.KEYCODE_META_RIGHT; break; // meta = meta | KeyEvent.META_ALT_ON ; kk = KeyEvent.KEYCODE_F; break;
-            case 0x403F: kk = KeyEvent.KEYCODE_META_LEFT; break; // meta = meta | KeyEvent.META_ALT_ON ; kk = KeyEvent.KEYCODE_F; break;
+            case 0x407D: meta = meta | KeyEvent.META_ALT_ON ; kk = KeyEvent.KEYCODE_F; break;
             case 0x407B: meta = meta | KeyEvent.META_ALT_ON ; kk = KeyEvent.KEYCODE_E; break;
             case 0x4077: meta = meta | KeyEvent.META_ALT_ON ; kk = KeyEvent.KEYCODE_V; break;
 //            case 0x607F: kk = KeyEvent.KEYCODE_FORWARD_DEL; break;
